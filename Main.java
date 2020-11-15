@@ -19,6 +19,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Colour Switch Game");
+        //CHECK THIS****************************
+        Image image = new Image(new FileInputStream("C:\\Users\\Neha\\IdeaProjects\\JavaFX\\colorswitch2.jpg"));
+        BackgroundImage myBI= new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         Image newg=new Image("file:///c:/Users/rachn/Desktop/new_game.png");
         ImageView iv1=new ImageView(newg);
@@ -48,6 +51,8 @@ public class Main extends Application {
         mediaPlayer.setAutoPlay(true);
 
         VBox vBox = new VBox();
+        //CHECK THIS****************************************
+        vBox.setBackground(new Background(myBI));
         vBox.setSpacing(10);
         vBox.getChildren().add(newGame);
         vBox.getChildren().add(resumeGame);
