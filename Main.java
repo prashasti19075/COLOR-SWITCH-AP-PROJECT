@@ -1,4 +1,5 @@
 package sample;
+import com.sun.javafx.stage.EmbeddedWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -9,9 +10,11 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
     //    @Override
+
     private static Scene sc;
     static Stage window;
     private static MediaPlayer mediaPlayer;
+
     public void start(Stage primaryStage) throws Exception{
         sc= load(getClass().getResource("sample.fxml"));
         window=primaryStage;
@@ -30,3 +33,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+
