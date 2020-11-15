@@ -21,24 +21,24 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Colour Switch Game");
         //CHECK THIS****************************
-        Image image = new Image(new FileInputStream("C:\\Users\\Neha\\IdeaProjects\\JavaFX\\colorswitch2.jpg"));
+        Image image = new Image(new FileInputStream("src\\colorswitch2.jpg"));
         BackgroundImage myBI= new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
-        Image newg=new Image("file:///c:/Users/rachn/Desktop/new_game.png");
+        Image newg=new Image(new FileInputStream("src\\new_game.png"));
         ImageView iv1=new ImageView(newg);
         iv1.setFitHeight(67);
         iv1.setFitWidth(250);
         Button newGame = new Button("",iv1);
         newGame.setStyle("-fx-background-color: #000000;");
        // newGame.setPrefSize();
-        Image resumeg=new Image("file:///c:/Users/rachn/Desktop/resume_game.png");
+        Image resumeg=new Image(new FileInputStream("src\\resume_game.png"));
         ImageView iv2=new ImageView(resumeg);
         iv2.setFitHeight(67);
         iv2.setFitWidth(250);
         Button resumeGame = new Button("",iv2);
         resumeGame.setStyle("-fx-background-color: #000000;");
 
-        Image quitg=new Image("file:///c:/Users/rachn/Desktop/exit_game.png");
+        Image quitg=new Image(new FileInputStream("src\\exit_game.png"));
         ImageView iv3=new ImageView(quitg);
         iv3.setFitHeight(67);
         iv3.setFitWidth(250);
