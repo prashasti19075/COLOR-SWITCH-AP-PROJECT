@@ -113,6 +113,7 @@ public class Main extends Application {
             public void handle(ActionEvent actionEvent) {
                 mediaPlayer.play();
                 primaryStage.setScene(sc);
+                primaryStage.show();
             }
         });
 
