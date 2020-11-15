@@ -47,7 +47,7 @@ public class Main extends Application {
         titleimg.setPreserveRatio(true);
         Group root = new Group(titleimg);
 
-        Image newg=new Image();
+        Image newg=new Image(new FileInputStream("src\\new_game.png"));
         ImageView iv1=new ImageView(newg);
         iv1.setFitHeight(67);
         iv1.setFitWidth(250);
