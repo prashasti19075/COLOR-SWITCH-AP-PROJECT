@@ -24,7 +24,7 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Colour Switch Game");
 
-        Image image = new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\AP_Project\\colorswitch2.jpg"));
+        Image image = new Image(new FileInputStream("src\\colorswitch2.jpg"));
         BackgroundImage myBI= new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         String path = "Ipsi.mp3";
@@ -38,7 +38,7 @@ public class Main extends Application {
         MediaView videoView = new MediaView(videoPlayer);
         videoPlayer.play();
 
-        Image titleimage = new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\AP_Project\\title.png"));
+        Image titleimage = new Image(new FileInputStream("src\\title.png"));
         ImageView titleimg = new ImageView(titleimage);
         titleimg.setX(0);
         titleimg.setY(0);
@@ -47,21 +47,21 @@ public class Main extends Application {
         titleimg.setPreserveRatio(true);
         Group root = new Group(titleimg);
 
-        Image newg=new Image("file:///c:/Users/rachn/Desktop/AP_Project/new_game.png");
+        Image newg=new Image();
         ImageView iv1=new ImageView(newg);
         iv1.setFitHeight(67);
         iv1.setFitWidth(250);
         Button newGame = new Button("",iv1);
         newGame.setStyle("-fx-background-color: #000000;");
 
-        Image resumeg=new Image("file:///c:/Users/rachn/Desktop/AP_Project/resume_game.png");
+        Image resumeg=new Image(new FileInputStream("src\\resume_game.png"));
         ImageView iv2=new ImageView(resumeg);
         iv2.setFitHeight(67);
         iv2.setFitWidth(250);
         Button resumeGame = new Button("",iv2);
         resumeGame.setStyle("-fx-background-color: #000000;");
 
-        Image quitg=new Image("file:///c:/Users/rachn/Desktop/AP_Project/exit_game.png");
+        Image quitg=new Image(new FileInputStream("src\\exit_game.png"));
         ImageView iv3=new ImageView(quitg);
         iv3.setFitHeight(67);
         iv3.setFitWidth(250);
