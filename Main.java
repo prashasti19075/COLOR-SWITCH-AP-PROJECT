@@ -10,18 +10,15 @@ import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
     //    @Override
-
-    private static Scene sc;
-    static Stage window;
-    private static MediaPlayer mediaPlayer;
-
+   private static Scene sc;
+   static Stage window;
     public void start(Stage primaryStage) throws Exception{
         sc= load(getClass().getResource("sample.fxml"));
         window=primaryStage;
         window.setTitle("Colour Switch Game");
         String path = "src/Ipsi.mp3";
         Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer= new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
 
         window.setMaximized(true);
