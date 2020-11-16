@@ -120,10 +120,12 @@ public class Controller implements Initializable {
         videoPlayer= new MediaPlayer(video);
         Videop=new MediaView(videoPlayer);
         // Videop.setMediaPlayer(videoPlayer);
-        videoPlayer.setAutoPlay(true);
+        //videoPlayer.setAutoPlay(true);
     }
     @FXML
     void bonusVideo() throws IOException {
+        videoPlayer.setAutoPlay(true);
+        Main.mediaPlayer.stop();
         System.out.println("Bonus Availed");
         Scene videoPage = FXMLLoader.load(getClass().getResource("video.fxml"));
         Main.window.setScene(videoPage);
@@ -131,6 +133,12 @@ public class Controller implements Initializable {
     @FXML
     void back() throws IOException{
         System.out.println("Back to Main");
+        Main.mediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                Main.mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+        Main.mediaPlayer.play();
         Scene MainPage = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Main.window.setScene(MainPage);
     }
