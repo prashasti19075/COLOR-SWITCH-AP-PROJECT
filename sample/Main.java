@@ -8,12 +8,13 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.Group;
 import javafx.scene.media.MediaView;
 import static javafx.fxml.FXMLLoader.load;
+import javafx.util.Duration;
 
 public class Main extends Application {
     //    @Override
     private static Scene sc;
     static Stage window;
-    private static MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer;
     public void start(Stage primaryStage) throws Exception{
         sc= load(getClass().getResource("sample.fxml"));
         window=primaryStage;
