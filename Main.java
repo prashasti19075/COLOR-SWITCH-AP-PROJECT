@@ -13,7 +13,7 @@ public class Main extends Application {
    private static Scene sc;
    static Stage window;
     public void start(Stage primaryStage) throws Exception{
-        sc= load(getClass().getResource("sample.fxml"));
+        sc= load(getClass().getResource("Main.fxml"));
         window=primaryStage;
         window.setTitle("Colour Switch Game");
         String path = "src/Ipsi.mp3";
