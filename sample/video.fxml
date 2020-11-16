@@ -10,7 +10,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Video_Controller">
     <VBox prefHeight="655.0" prefWidth="1280.0" style="-fx-background-color: #ff9999; -fx-border-color: black; -fx-border-width: 3;">
       <children>
          <Pane prefHeight="650.0" prefWidth="1300.0">
@@ -28,7 +28,7 @@
                      </MediaView>
                   </children>
                </Group>
-               <Button fx:id="Back_Button" disable="true" layoutX="1137.0" layoutY="254.0" mnemonicParsing="false" onAction="#back" prefHeight="76.0" prefWidth="127.0" text="BACK" wrapText="true">
+               <Button fx:id="Back_Button" layoutX="1137.0" layoutY="254.0" mnemonicParsing="false" onAction="#back" prefHeight="76.0" prefWidth="127.0" text="BACK" wrapText="true">
                   <font>
                      <Font name="Algerian" size="29.0" />
                   </font></Button>
