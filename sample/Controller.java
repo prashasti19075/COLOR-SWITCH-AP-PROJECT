@@ -35,7 +35,6 @@ public class Controller implements Initializable {
     Button Resume_Game;
     @FXML
     Button Exit_Game;
-
     //IMAGES
     @FXML
     ImageView Background_img;
@@ -55,21 +54,21 @@ public class Controller implements Initializable {
                 musicPlayer.play();
             }
         });
-        System.out.println(Classes.App.is_video());
-        if (Classes.App.is_video()) {
+        System.out.println(Main.colorswitch.is_video());
+        if (Main.colorswitch.is_video()) {
             videobutton.setDisable(false);
         } else {
             videobutton.setDisable(true);
         }
-        Star_Label.setText("" + Classes.App.get_stars());
+        Star_Label.setText("" + Main.colorswitch.get_stars());
     }
 
     @FXML
     void bonusVideo() throws IOException {
         System.out.println("Bonus Availed");
-        Classes.App.setVideo();
+        Main.colorswitch.setVideo();
         musicPlayer.pause();
-        Classes.App.bonusstars();
+        Main.colorswitch.bonusstars();
         Scene videoPage = FXMLLoader.load(getClass().getResource("video.fxml"));
         Main.window.setScene(videoPage);
         // ********* ADD THIS Star_Label.setText(Integer.toString(curr_stars+30));
