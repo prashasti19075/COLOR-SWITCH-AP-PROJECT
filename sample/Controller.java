@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +23,6 @@ import javafx.event.ActionEvent;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Controller implements Initializable {
-    Apps colorswitch = new Apps();
     @FXML
     MediaPlayer musicPlayer;
     @FXML
@@ -49,8 +49,6 @@ public class Controller implements Initializable {
     ImageView Exit_Game_img;
 
     public void initialize(URL location, ResourceBundle resources) {
-        int curr_stars = colorswitch.get_stars();
-        Star_Label.setText(Integer.toString(curr_stars));
         musicPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 musicPlayer.seek(Duration.ZERO);
@@ -58,16 +56,12 @@ public class Controller implements Initializable {
             }
         });
         System.out.println(Classes.App.is_video());
-        if (Classes.App.is_video())
-        {
+        if (Classes.App.is_video()) {
             videobutton.setDisable(false);
-        }
-        else
-        {
-            colorswitch.addBonus();
+        } else {
             videobutton.setDisable(true);
         }
-        Star_Label.setText(""+Classes.App.get_stars());
+        Star_Label.setText("" + Classes.App.get_stars());
     }
 
     @FXML
@@ -75,49 +69,22 @@ public class Controller implements Initializable {
         System.out.println("Bonus Availed");
         Classes.App.setVideo();
         musicPlayer.pause();
-        Classes.App.add_stars(30);
+        Classes.App.bonusstars();
         Scene videoPage = FXMLLoader.load(getClass().getResource("video.fxml"));
         Main.window.setScene(videoPage);
         // ********* ADD THIS Star_Label.setText(Integer.toString(curr_stars+30));
     }
 
-    class Apps implements Serializable {
-        ImageView[] images;
-        Button[] buttons;
-
-        Media music;
-        private int totalstars;
-        Classes.Game mygame;
-        TextArea Display_Stars;
-
-        Apps() {
-            images = new ImageView[5];
-            buttons = new Button[4];
-            buttons[0]=videobutton;
-            buttons[1]=New_Game;
-            buttons[2]=Resume_Game;
-            buttons[3]=Exit_Game;
-
-            images[0]=Background_img;
-            images[1]=New_Game_img;
-            images[2]=Resume_Game_img;
-            images[3]=Exit_Game_img;
-            images[4]=Title_img;
-            totalstars=0;
-            Display_Stars=Star_Label;
-
-        }
-
-        private void display() {
-            Display_Stars.setText(Integer.toString(totalstars));
-        }
-        public void addBonus()
-        {
-            totalstars+=30;
-        }
-        public int get_stars() {
-            return totalstars;
-        }
-
+    @FXML
+    void Quit() {
+        Platform.exit();
+    }
+    @FXML
+    void Begin_New() {
+        Platform.exit();
+    }
+    @FXML
+    void Resume_old() {
+        Platform.exit();
     }
 }
