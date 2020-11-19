@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
@@ -84,6 +85,8 @@ public class Controller implements Initializable {
     }
     @FXML
     void Resume_old() {
-        Platform.exit();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showOpenDialog(Main.window);
     }
 }
