@@ -21,7 +21,7 @@ public class Classes {
         ImageView[] images;
         Button[] buttons;
         Media music;
-        private int totalstars;
+        private static int totalstars;
         Game mygame;
         static int video=0;
 
@@ -29,9 +29,6 @@ public class Classes {
             images = new ImageView[5];
             buttons = new Button[4];
        }
-        public int get_stars() {
-            return totalstars;
-        }
         public static void setVideo() {
             video = 1;
         }
@@ -40,6 +37,14 @@ public class Classes {
                 return true;
             else
                 return false;
+        }
+        public static int get_stars()
+        {
+            return totalstars;
+        }
+        public static void add_stars(int stars)
+        {
+            totalstars+=stars;
         }
 
     }

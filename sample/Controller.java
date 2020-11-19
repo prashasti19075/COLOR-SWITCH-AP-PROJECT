@@ -60,7 +60,6 @@ public class Controller implements Initializable {
         System.out.println(Classes.App.is_video());
         if (Classes.App.is_video())
         {
-
             videobutton.setDisable(false);
         }
         else
@@ -68,7 +67,7 @@ public class Controller implements Initializable {
             colorswitch.addBonus();
             videobutton.setDisable(true);
         }
-
+        Star_Label.setText(""+Classes.App.get_stars());
     }
 
     @FXML
@@ -76,6 +75,7 @@ public class Controller implements Initializable {
         System.out.println("Bonus Availed");
         Classes.App.setVideo();
         musicPlayer.pause();
+        Classes.App.add_stars(30);
         Scene videoPage = FXMLLoader.load(getClass().getResource("video.fxml"));
         Main.window.setScene(videoPage);
         // ********* ADD THIS Star_Label.setText(Integer.toString(curr_stars+30));
