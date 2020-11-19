@@ -1,55 +1,77 @@
 package sample;
+
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.stage.Stage;
-import java.io.File;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.Group;
-import javafx.scene.media.MediaView;
+import java.io.Serializable;
 import static javafx.fxml.FXMLLoader.load;
-import javafx.util.Duration;
 
 public class Main extends Application {
-    //    @Override
-    private static Scene sc;
-    static Stage window;
-    static MediaPlayer mediaPlayer;
+    static App colorswitch =new App();
+   static Stage window=new Stage();
+   static Scene Mainpage;
     public void start(Stage primaryStage) throws Exception{
-        sc= load(getClass().getResource("sample.fxml"));
-        window=primaryStage;
+
+        Mainpage = load(getClass().getResource("sample.fxml"));
         window.setTitle("Colour Switch Game");
-
-
-        String path = "src/Ipsi.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer= new MediaPlayer(media);
-        //mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                mediaPlayer.seek(Duration.ZERO);
-            }
-        });
-        mediaPlayer.play();
-
         window.setMaximized(true);
-        window.setScene(sc);
+        window.setScene(Mainpage);
         window.show();
-
-
-        //String pathv = "src/video.mp4";
-        /*Media video = new Media(new File(path).toURI().toString());
-        MediaPlayer videoPlayer = new MediaPlayer(video);
-        MediaView mediaView = new MediaView (videoPlayer);
-        Group root = new Group();
-        root.getChildren().add(mediaView);
-        Scene scene = new Scene(root,600,400);
-        primaryStage.setTitle("Playing Video");
-        primaryStage.show();*/
-
     }
     public static void main(String[] args)
     {
         launch(args);
     }
+}
+class App implements Serializable {
+    ImageView[] images;
+    Button[] buttons;
+    Media music;
+    private static int totalstars;
+    Classes.Game mygame;
+    static int video=0;
+    Controller cont;
+    App() {
+        images = new ImageView[5];
+        buttons = new Button[4];
+        images = new ImageView[5];
+        buttons = new Button[4];
+//        buttons[0]=cont.videobutton;
+//        buttons[1]=cont.New_Game;
+//        buttons[2]=cont.Resume_Game;
+//        buttons[3]=cont.Exit_Game;
+//
+//        images[0]=cont.Background_img;
+//        images[1]=cont.New_Game_img;
+//        images[2]=cont.Resume_Game_img;
+//        images[3]=cont.Exit_Game_img;
+//        images[4]=cont.Title_img;
+    }
+    public void setVideo() {
+        video = 1;
+    }
+    public boolean is_video() {
+        if (video == 0)
+            return true;
+        else
+            return false;
+    }
+    public int get_stars()
+    {
+        return totalstars;
+    }
+    public void bonusstars()
+    {
+        totalstars+=30;
+    }
+    public void updatestars(int stars)
+    {
+        totalstars+=stars;
+    }
+
 }

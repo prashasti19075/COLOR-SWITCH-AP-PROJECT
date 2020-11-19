@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Scene xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox>
+        <children>
+            <AnchorPane prefHeight="585.0" prefWidth="1281.0">
+                <children>
+                    <ImageView fitHeight="666.0" fitWidth="1301.0" layoutX="-12.0" layoutY="-31.0" pickOnBounds="true">
+                        <image>
+                            <Image url="@../colorswitch2.jpg" />
+                        </image>
+                    </ImageView>
+                    <Button alignment="CENTER" layoutX="368.0" layoutY="283.0" mnemonicParsing="false" prefHeight="113.0" prefWidth="553.0" style="-fx-border-color: White; -fx-background-color: none; -fx-background-color: Black;" text="USE STARS TO REVIVE" textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="46.0" />
+                        </font>
+                        <effect>
+                            <Reflection topOpacity="0.28" />
+                        </effect>
+                    </Button>
+                    <Button alignment="CENTER" layoutX="418.0" layoutY="419.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="441.0" style="-fx-border-color: White; -fx-background-color: Black;" text="BACK TO MENU" textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="46.0" />
+                        </font>
+                        <effect>
+                            <Reflection topOpacity="0.28" />
+                        </effect>
+                    </Button>
+                    <ImageView fitHeight="216.0" fitWidth="261.0" layoutX="24.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../title.png" />
+                        </image>
+                    </ImageView>
+               <Button alignment="CENTER" layoutX="456.0" layoutY="121.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="378.0" style="-fx-border-color: None; -fx-background-color: None;" text="GAME OVER!" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="46.0" />
+                  </font>
+                  <effect>
+                     <Reflection topOpacity="0.28" />
+                  </effect>
+               </Button>
+               <Button alignment="CENTER" layoutX="816.0" layoutY="-8.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="378.0" style="-fx-border-color: None; -fx-background-color: None;" text="SCORE:" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="46.0" />
+                  </font>
+                  <effect>
+                     <Reflection topOpacity="0.28" />
+                  </effect>
+               </Button>
+               <ImageView fitHeight="81.0" fitWidth="109.0" layoutX="1202.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../star.png" />
+                  </image>
+               </ImageView>
+                </children>
+            </AnchorPane>
+        </children>
+    </VBox>
+</Scene>
