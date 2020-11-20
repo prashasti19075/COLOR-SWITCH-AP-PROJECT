@@ -33,7 +33,7 @@ class App implements Serializable {
     Button[] buttons;
     Media music;
     private static int totalstars;
-    Classes.Game mygame;
+    Game mygame;
     static int video=0;
     Controller cont;
     App() {
@@ -73,5 +73,16 @@ class App implements Serializable {
     {
         totalstars+=stars;
     }
+    public void resume_game()
+    {
 
+    }
+}
+
+class Game
+{
+    Game()
+    {
+
+    }
 }

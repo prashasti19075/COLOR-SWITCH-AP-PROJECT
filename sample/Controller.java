@@ -80,8 +80,10 @@ public class Controller implements Initializable {
         Platform.exit();
     }
     @FXML
-    void Begin_New() {
-        Platform.exit();
+    void Begin_New() throws IOException {
+        musicPlayer.pause();
+       Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+        Main.window.setScene(gamepage);
     }
     @FXML
     void Resume_old() {
