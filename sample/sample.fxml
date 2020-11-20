@@ -34,7 +34,10 @@
                   <Image url="@../colorswitch2.jpg" />
                </image>
             </ImageView>
-               <TextArea fx:id="Star_Label" editable="false" layoutX="1059.0" layoutY="39.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0" prefWidth="147.0" promptText="0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill: #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; " text="0" wrapText="true">
+               <TextArea fx:id="Star_Label" editable="false" layoutX="1059.0"
+                         layoutY="39.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="69.0"
+                         prefWidth="147.0" promptText="0" style="-fx-background-color: black; -fx-control-inner-background:#000000;
+                         -fx-text-fill: #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; " text="0" wrapText="true">
                   <font>
                      <Font name="Algerian" size="40.0" />
                   </font>

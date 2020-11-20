@@ -10,8 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -19,64 +22,82 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Game_Controller implements Initializable {
+public class Game_Controller<e> implements Initializable {
+    boolean not_enable=true;
+    @FXML
+    MediaPlayer music;
+    @FXML
+    TextArea Star_Label;
+    @FXML
+    TextArea Level_Label;
+    @FXML
+    Button Pause_Button;
     @FXML
     Circle Ball;
     @FXML
     Scene Game_Scene;
     @FXML
-    ImageView a;
+    ImageView Obstacle;
     @FXML
     Canvas canvas;
-    Timeline timeline;
+    public static Timeline timeline;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        Bounds bounds = canvas.getBoundsInLocal();
-            timeline= new Timeline(new KeyFrame(Duration.seconds(0.025),ev->
-            {
-                Ball.setCenterY(Ball.getCenterY()+3);
-                if (Ball.getCenterY() >= bounds.getMaxY()) {
-                    System.out.println("Out of bounds");
-                    Scene gameover = null;
-                    try {
-                        timeline.pause();
-                        System.out.println("Inside try");
-                        gameover = FXMLLoader.load(getClass().getResource("Game_Over.fxml"));
-                        Main.window.setScene(gameover);
-                        return;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Outside try");
+       Main.colorswitch.mygame.set_gui(this);
+        Main.colorswitch.mygame.DisplayScore();
+        Main.colorswitch.mygame.display();
+        music.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                music.seek(Duration.ZERO);
+                music.play();
+            }
+        });
+        timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
+        {
+            Main.colorswitch.mygame.playgame();
+            System.out.println("Here2");
 
-                }
-            }));
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+    @FXML
+    public void pause() throws IOException
+    {
+        System.out.println("Pause Pressed");
+        timeline.pause();
+        Main.colorswitch.mygame.DisplayPause(music);
     }
     @FXML
     public void check()
     {
-       System.out.println("Key Pressed");
-        Game_Scene.setOnKeyPressed(e ->
+        System.out.println("Ab call honge maharaj");
+        System.out.println("Here1");
+        timeline.pause();
+        Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
         {
-            if (e.getCode() == KeyCode.UP) {
-                System.out.println("UP key was pressed");
-                timeline.pause();
-                System.out.println("timeline - paused");
-                Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev->
-                {
-                    Ball.setCenterY(Ball.getCenterY()-50);
-                }));
-//                new KeyValue(Ball.layoutYProperty(), Ball.getLayoutY()-30)));
-                moveup.setCycleCount(1);
-                moveup.play();
-                timeline.play();
-                System.out.println("timeline-resumed");
-            }
-        });
-
+            Ball.setCenterY(Ball.getCenterY()-30);
+        }));
+        moveup.setCycleCount(1);
+        moveup.play();
+        timeline.play();
+//        Game_Scene.setOnKeyPressed(e ->
+//        {
+//            System.out.println("Here1");
+//            if (e.getCode() == KeyCode.UP)
+//            {
+//                System.out.println("Here1");
+//                timeline.pause();
+//                Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
+//                {
+//                    Ball.setCenterY(Ball.getCenterY()-50);
+//                }));
+//                moveup.setCycleCount(1);
+//                moveup.play();
+//                timeline.play();
+//            }
+//        });
     }
     public void collision(ImageView a, Circle b) {
         if (a.getBoundsInLocal().intersects(b.getBoundsInLocal())) {
