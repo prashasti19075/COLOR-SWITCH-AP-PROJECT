@@ -16,69 +16,65 @@
 <?import javafx.scene.media.MediaPlayer?>
 <?import javafx.scene.media.Media?>
 <Scene fx:id="Game_Scene" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
-   <ScrollPane onKeyPressed="#check">
-      <content>
-         <VBox onKeyPressed="#check">
-             <children>
-                 <MediaView>
-                     <mediaPlayer>
-                         <MediaPlayer fx:id="music" autoPlay="true">
-                             <media>
-                                 <Media source="@vid/GAME_MUSIC.wav" />
-                             </media>
-                         </MediaPlayer>
-                     </mediaPlayer>
-                 </MediaView>
-             </children>
-            <children>
-                <AnchorPane onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
-                  <children>
-                     <ImageView fitHeight="659.0" fitWidth="1365.0" pickOnBounds="true">
-                        <image>
-                           <Image url="@../pause_background.jpg" />
-                        </image>
-                     </ImageView>
-                     <Canvas fx:id="canvas" height="655.0" width="1360.0" />
-                     <Circle fx:id="Ball" fill="#e8ff1f" layoutX="641.0" layoutY="600.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-                     <ImageView fx:id="Obstacle" fitHeight="240.0" fitWidth="253.0" layoutX="530.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../obs1.png" />
-                        </image>
-                     </ImageView>
-                     <Button fx:id="Pause_Button" alignment="CENTER" layoutX="928.0" layoutY="27.0" mnemonicParsing="false" onAction="#pause" prefHeight="112.0" prefWidth="136.0" style="-fx-background-color: None; -fx-border-color: White; -fx-border-width: 3;" text="Pause Game " textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                        <font>
-                           <Font name="Algerian" size="28.0" />
-                        </font>
-                     </Button>
-                     <ImageView fitHeight="201.0" fitWidth="259.0" layoutX="31.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../title.png" />
-                        </image>
-                     </ImageView>
-                     <TextArea fx:id="Level_Label" editable="false" layoutX="22.0" layoutY="528.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="265.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
-                        <font>
-                           <Font name="Algerian" size="50.0" />
-                        </font>
-                     </TextArea>
-                     <TextArea fx:id="Star_Label" editable="false" layoutX="1088.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="229.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
-                        <font>
-                           <Font name="Algerian" size="50.0" />
-                        </font>
-                     </TextArea>
-                     <ImageView fitHeight="76.0" fitWidth="79.0" layoutX="1216.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../star.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="86.0" fitWidth="81.0" layoutX="610.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../star.png" />
-                        </image>
-                     </ImageView>
-                  </children>
-               </AnchorPane>
-            </children>
-         </VBox>
-      </content>
-   </ScrollPane>
+    <ScrollPane onKeyPressed="#check">
+        <content>
+            <VBox onKeyPressed="#check">
+                <children>
+                    <MediaView>
+                        <mediaPlayer>
+                            <MediaPlayer fx:id="music" autoPlay="true">
+                                <media>
+                                    <Media source="@vid/Ipsi.mp3" />
+                                </media>
+                            </MediaPlayer>
+                        </mediaPlayer>
+                    </MediaView>
+                </children>
+                <children>
+                    <AnchorPane onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
+                        <children>
+                            <Canvas fx:id="canvas" height="655.0" width="1360.0" />
+                            <ImageView fx:id="Obstacle" fitHeight="240.0" fitWidth="253.0" layoutX="530.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../obs.png" />
+                                </image>
+                            </ImageView>
+                            <Circle fx:id="Ball" fill="#e8ff1f" layoutX="641.0" layoutY="600.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+
+                            <Button fx:id="Pause_Button" alignment="CENTER" layoutX="928.0" layoutY="27.0" mnemonicParsing="false" onAction="#pause" prefHeight="112.0" prefWidth="136.0" style="-fx-background-color: None; -fx-border-color: White; -fx-border-width: 3;" text="Pause Game " textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                <font>
+                                    <Font name="Algerian" size="28.0" />
+                                </font>
+                            </Button>
+                            <ImageView fitHeight="201.0" fitWidth="259.0" layoutX="31.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../title.png" />
+                                </image>
+                            </ImageView>
+                            <TextArea fx:id="Level_Label" editable="false" layoutX="22.0" layoutY="528.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="265.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
+                                <font>
+                                    <Font name="Algerian" size="50.0" />
+                                </font>
+                            </TextArea>
+                            <TextArea fx:id="Star_Label" editable="false" layoutX="1088.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="229.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
+                                <font>
+                                    <Font name="Algerian" size="50.0" />
+                                </font>
+                            </TextArea>
+                            <ImageView fitHeight="76.0" fitWidth="79.0" layoutX="1216.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../star.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="86.0" fitWidth="81.0" layoutX="610.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../star.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
 </Scene>
