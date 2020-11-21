@@ -48,7 +48,7 @@
                             <Reflection topOpacity="0.28" />
                         </effect>
                     </Button>
-                    <Button alignment="CENTER" layoutX="816.0" layoutY="-8.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="378.0" style="-fx-border-color: None; -fx-background-color: None;" text="SCORE:" textAlignment="CENTER" textFill="WHITE">
+                    <Button fx:id="Star_Label" alignment="CENTER" layoutX="888.0" layoutY="-8.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="306.0" style="-fx-border-color: None; -fx-background-color: None;" text="SCORE:" textAlignment="CENTER" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="46.0" />
                         </font>

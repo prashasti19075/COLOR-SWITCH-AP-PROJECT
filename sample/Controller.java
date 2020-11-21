@@ -48,7 +48,9 @@ public class Controller implements Initializable {
     @FXML
     ImageView Exit_Game_img;
 
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        Main.colorswitch.set_gui(this);
         musicPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 musicPlayer.seek(Duration.ZERO);
@@ -77,18 +79,19 @@ public class Controller implements Initializable {
 
     @FXML
     void Quit() {
-        Platform.exit();
+        Main.colorswitch.exit_game();
     }
     @FXML
-    void Begin_New() throws IOException {
-        musicPlayer.pause();
-       Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
-        Main.window.setScene(gamepage);
+    void Begin_New() throws IOException
+    {
+        Main.colorswitch.new_game();
     }
     @FXML
-    void Resume_old() {
+    void Resume_old()
+    {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.showOpenDialog(Main.window);
+        //add a condition of while a valid selection is not made continue choosing
     }
 }

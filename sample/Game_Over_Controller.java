@@ -9,12 +9,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Game_Over_Controller implements Initializable {
+    int total_stars;
     @FXML
     Button Revive;
     @FXML
     Button Back_to_Menu;
     @FXML
-    public void Back() throws IOException {
+    Button Star_Label;
+    @FXML
+    public void Back() throws IOException
+    {
         Scene homepage = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Main.window.setScene(homepage);
     }
@@ -22,12 +26,20 @@ public class Game_Over_Controller implements Initializable {
     public void Revive()
     {
         //load
-        Main.colorswitch.mygame.DisplayRevive(Revive);
+       int reduce= Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
+       Main.colorswitch.updatestars(-reduce);
+        int appstars=Main.colorswitch.get_stars();
+        int currstars=Main.colorswitch.mygame.retStars();
+        total_stars=appstars+currstars;
+        Star_Label.setText("SCORE: "+total_stars);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        int appstars=Main.colorswitch.get_stars();
+        int currstars=Main.colorswitch.mygame.retStars();
+        total_stars=appstars+currstars;
+        Star_Label.setText("SCORE: "+total_stars);
 
     }
 }

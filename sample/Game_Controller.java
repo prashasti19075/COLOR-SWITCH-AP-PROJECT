@@ -36,6 +36,10 @@ public class Game_Controller<e> implements Initializable {
     @FXML
     ImageView Obstacle;
     @FXML
+    ImageView color_switcher;
+    @FXML
+    ImageView star;
+    @FXML
     Canvas canvas;
     public static Timeline timeline;
     @Override
@@ -53,19 +57,10 @@ public class Game_Controller<e> implements Initializable {
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
         {
             Main.colorswitch.mygame.playgame();
-            System.out.println(" "+Ball.getCenterY());
-
-
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-
-        RotateTransition rt = new RotateTransition(Duration.millis(3000), Obstacle);
-        rt.setByAngle(360);
-        rt.setCycleCount(Animation.INDEFINITE);
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.play();
+        Main.colorswitch.mygame.DisplayObstacles();
     }
     @FXML
     public void pause() throws IOException
@@ -77,8 +72,6 @@ public class Game_Controller<e> implements Initializable {
     @FXML
     public void check()
     {
-//        System.out.println("Ab call honge maharaj");
-//        System.out.println("Here1");
         timeline.pause();
         Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
         {
@@ -87,7 +80,6 @@ public class Game_Controller<e> implements Initializable {
         moveup.setCycleCount(1);
         moveup.play();
         timeline.play();
-
     }
     @FXML
     public void check2(){

@@ -15,7 +15,8 @@ public class Pause_Controller{
         Main.window.setScene(homepage);
     }
     @FXML
-    public void resume(){
+    public void resume()
+    {
 
     }
     @FXML

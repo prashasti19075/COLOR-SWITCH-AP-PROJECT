@@ -44,7 +44,7 @@
                                     <Image url="@../handbgless.png" />
                                 </image>
                             </ImageView>
-                            <ImageView fx:id="Switcher" fitHeight="50.0" fitWidth="50.0" layoutX="620.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="color_switcher" fitHeight="50.0" fitWidth="50.0" layoutX="620.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../switcher.jpg" />
                                 </image>
@@ -57,6 +57,11 @@
                                     <Font name="Algerian" size="28.0" />
                                 </font>
                             </Button>
+                            <ImageView fx:id="PauseButton" fitHeight="50.0" fitWidth="50.0" layoutX="928.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Pause.png" />
+                                </image>
+                            </ImageView>
 
                             <ImageView fitHeight="201.0" fitWidth="259.0" layoutX="31.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
@@ -73,7 +78,7 @@
                                     <Font name="Algerian" size="50.0" />
                                 </font>
                             </TextArea>
-                            <ImageView fitHeight="76.0" fitWidth="79.0" layoutX="1210.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="star" fitHeight="76.0" fitWidth="79.0" layoutX="1210.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../star.png" />
                                 </image>
