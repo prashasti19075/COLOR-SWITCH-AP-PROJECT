@@ -1,9 +1,6 @@
 package sample;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,7 +41,7 @@ public class Game_Controller<e> implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-       Main.colorswitch.mygame.set_gui(this);
+        Main.colorswitch.mygame.set_gui(this);
         Main.colorswitch.mygame.DisplayScore();
         Main.colorswitch.mygame.display();
         music.setOnEndOfMedia(new Runnable() {
@@ -61,6 +58,13 @@ public class Game_Controller<e> implements Initializable {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+
+        RotateTransition rt = new RotateTransition(Duration.millis(3000), Obstacle);
+        rt.setByAngle(360);
+        rt.setCycleCount(Animation.INDEFINITE);
+        rt.setInterpolator(Interpolator.LINEAR);
+        rt.play();
     }
     @FXML
     public void pause() throws IOException
@@ -82,22 +86,11 @@ public class Game_Controller<e> implements Initializable {
         moveup.setCycleCount(1);
         moveup.play();
         timeline.play();
-//        Game_Scene.setOnKeyPressed(e ->
-//        {
-//            System.out.println("Here1");
-//            if (e.getCode() == KeyCode.UP)
-//            {
-//                System.out.println("Here1");
-//                timeline.pause();
-//                Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
-//                {
-//                    Ball.setCenterY(Ball.getCenterY()-50);
-//                }));
-//                moveup.setCycleCount(1);
-//                moveup.play();
-//                timeline.play();
-//            }
-//        });
+
+    }
+    @FXML
+    public void check2(){
+
     }
     public void collision(ImageView a, Circle b) {
         if (a.getBoundsInLocal().intersects(b.getBoundsInLocal())) {
