@@ -23,9 +23,9 @@ import java.io.Serializable;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
-   static App colorswitch =new App();
-   static Stage window;
-   static Scene Mainpage;
+    static App colorswitch =new App();
+    static Stage window;
+    static Scene Mainpage;
     public void start(Stage primaryStage) throws Exception{
         window=new Stage();
         Mainpage = load(getClass().getResource("sample.fxml"));
@@ -93,18 +93,18 @@ class App implements Serializable {
 
 class Game
 {
-private MediaPlayer[] sounds;
-private TextArea[] labels;
-private Image[] images;
-private Button[] buttons;;
-private int starcount;
-private Ball b;
-private int level;
-private double ballspeed;
-private double obstaclespeed;
-Obstacle currentobstacle;
-Boolean game;
-Game()
+    private MediaPlayer[] sounds;
+    private TextArea[] labels;
+    private Image[] images;
+    private Button[] buttons;;
+    private int starcount;
+    private Ball b;
+    private int level;
+    private double ballspeed;
+    private double obstaclespeed;
+    Obstacle currentobstacle;
+    Boolean game;
+    Game()
     {
         sounds=new MediaPlayer[3];
         images=new Image[3];
@@ -170,7 +170,7 @@ Game()
     }
     private boolean drop()
     {
-        if (b.getY() >= 620)
+        if (b.getY() >= 100)
         {
             return true;
         }
@@ -182,21 +182,21 @@ Game()
     }
     public void playgame()
     {
-            b.setY(b.getY()+ballspeed);
-            //THIS IS GAME_OVER
-             if(drop())
-             {
-                 try
-                 {
-                     Game_Controller.timeline.pause();
-                     sounds[0].pause();
-                     game_over();
-                     return;
-                 } catch (IOException ioException) {
-                     ioException.printStackTrace();
-                 }
-                 return;
-             }
+        b.setY(b.getY()+ballspeed);
+        //THIS IS GAME_OVER
+        if(drop())
+        {
+            try
+            {
+                Game_Controller.timeline.pause();
+                sounds[0].pause();
+                game_over();
+                return;
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            return;
+        }
     }
     private boolean CollisionStar()
     {
@@ -224,9 +224,11 @@ class Ball
 {
     //****** REMEMBER ISKO PRIVATE KARNA HAIIII
     public Circle ball;
+    //store ball ka x
+    //store ball ka y
     public void setY(double x)
     {
-       ball.setCenterY(x);
+        ball.setCenterY(x);
     }
     public double getY()
     {

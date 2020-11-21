@@ -53,7 +53,8 @@ public class Game_Controller<e> implements Initializable {
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
         {
             Main.colorswitch.mygame.playgame();
-            System.out.println("Here2");
+            System.out.println(" "+Ball.getCenterY());
+
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -76,8 +77,8 @@ public class Game_Controller<e> implements Initializable {
     @FXML
     public void check()
     {
-        System.out.println("Ab call honge maharaj");
-        System.out.println("Here1");
+//        System.out.println("Ab call honge maharaj");
+//        System.out.println("Here1");
         timeline.pause();
         Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
         {
