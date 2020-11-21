@@ -23,11 +23,11 @@ import java.io.Serializable;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
-    static App colorswitch =new App();
-   static Stage window=new Stage();
+   static App colorswitch =new App();
+   static Stage window;
    static Scene Mainpage;
     public void start(Stage primaryStage) throws Exception{
-
+        window=new Stage();
         Mainpage = load(getClass().getResource("sample.fxml"));
         window.setTitle("Colour Switch Game");
         window.setMaximized(true);
