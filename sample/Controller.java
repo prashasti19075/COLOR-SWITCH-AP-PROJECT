@@ -87,11 +87,9 @@ public class Controller implements Initializable {
         Main.colorswitch.new_game();
     }
     @FXML
-    void Resume_old()
-    {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(Main.window);
+    void Resume_old() throws IOException {
+        Scene displayoldgames = FXMLLoader.load(getClass().getResource("Display_Games.fxml"));
+        Main.window.setScene(displayoldgames);
         //add a condition of while a valid selection is not made continue choosing
     }
 }

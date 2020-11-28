@@ -34,7 +34,7 @@
                     <AnchorPane onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
                         <children>
                             <Canvas fx:id="canvas" height="655.0" width="1360.0" />
-                            <ImageView fx:id="Obstacle" fitHeight="240.0" fitWidth="253.0" layoutX="530.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="Obstacle" fitHeight="240.0" fitWidth="253.0" layoutX="530.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../obstacle-removebg.png" />
                                 </image>
@@ -44,12 +44,12 @@
                                     <Image url="@../handbgless.png" />
                                 </image>
                             </ImageView>
-                            <ImageView fx:id="color_switcher" fitHeight="50.0" fitWidth="50.0" layoutX="620.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="color_switcher" fitHeight="50.0" fitWidth="50.0" layoutX="624.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../switcher.jpg" />
                                 </image>
                             </ImageView>
-                            <Circle fx:id="Ball" fill="#e8ff1f" layoutX="645.0" layoutY="560.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                            <Circle fx:id="Ball" fill="#e8ff1f" layoutX="646.0" layoutY="574.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
 
 
                             <Button fx:id="Pause_Button" alignment="CENTER" layoutX="928.0" layoutY="27.0" mnemonicParsing="false" onAction="#pause" prefHeight="112.0" prefWidth="136.0" style="-fx-background-color: None; -fx-border-color: White; -fx-border-width: 3;" text="Pause Game " textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -73,12 +73,12 @@
                                     <Font name="Algerian" size="50.0" />
                                 </font>
                             </TextArea>
-                            <ImageView fx:id="star" fitHeight="76.0" fitWidth="79.0" layoutX="1210.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="star" fitHeight="76.0" fitWidth="79.0" layoutX="1193.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../star.png" />
                                 </image>
                             </ImageView>
-                            <ImageView fitHeight="86.0" fitWidth="81.0" layoutX="610.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="86.0" fitWidth="81.0" layoutX="610.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../star.png" />
                                 </image>

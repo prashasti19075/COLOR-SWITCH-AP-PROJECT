@@ -20,6 +20,11 @@ public class Pause_Controller{
 
     }
     @FXML
+    public void Restart()
+    {
+
+    }
+    @FXML
     public void SaveandExit(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Resource File");

@@ -33,6 +33,10 @@ public class Game_Over_Controller implements Initializable {
         total_stars=appstars+currstars;
         Star_Label.setText("SCORE: "+total_stars);
     }
+    @FXML
+    public void Restart()
+    {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

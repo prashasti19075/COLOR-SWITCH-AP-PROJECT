@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Display_Game_Controller">
+   <VBox>
+      <children>
+          <AnchorPane prefHeight="655.0" prefWidth="1300.0">
+            <children>
+               <ImageView cache="true" fitHeight="667.0" fitWidth="1335.0" layoutX="-34.0" layoutY="-12.0" pickOnBounds="true">
+                       <image>
+                           <Image url="@../colorswitch2.jpg" />
+                       </image>
+               </ImageView>
+               <ListView fx:id="List" layoutX="319.0" layoutY="173.0" prefHeight="427.0" prefWidth="705.0" style="-fx-background-color: transparent; -fx-cell-size: 36; -fx-control-inner-background: black; -fx-text-alignment: center; -fx-text-fill: white;" />
+               <Label alignment="CENTER" layoutX="243.0" layoutY="49.0" prefHeight="83.0" prefWidth="769.0" text="SELECT FROM THE SAVED GAMES" textFill="#f3f0f0">
+                  <font>
+                     <Font name="Algerian" size="47.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children>
+   </VBox>
+</Scene>

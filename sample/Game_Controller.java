@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Game_Controller<e> implements Initializable {
-    boolean not_enable=true;
+    boolean not_enable=false;
     @FXML
     MediaPlayer music;
     @FXML
@@ -54,12 +54,16 @@ public class Game_Controller<e> implements Initializable {
                 music.play();
             }
         });
+
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
         {
             Main.colorswitch.mygame.playgame();
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        if(not_enable==true)
+        {
+            timeline.play();
+        }
         Main.colorswitch.mygame.DisplayObstacles();
     }
     @FXML
@@ -73,6 +77,10 @@ public class Game_Controller<e> implements Initializable {
     public void check()
     {
         timeline.pause();
+        if(not_enable==false)
+        {
+            not_enable=true;
+        }
         Timeline moveup = new Timeline(new KeyFrame(Duration.seconds(0.025),ev2->
         {
             Ball.setCenterY(Ball.getCenterY()-30);
