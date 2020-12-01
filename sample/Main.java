@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -19,6 +21,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
@@ -43,15 +48,19 @@ class App implements Serializable {
     Button[] buttons;
     MediaPlayer music;
     private static int totalstars;
+    ArrayList<Game> savedgames;
     Game mygame;
     static int video=0;
     Controller cont;
-    App() {
+    App()
+        {
         images = new ImageView[5];
         buttons = new Button[4];
         images = new ImageView[5];
         buttons = new Button[4];
-        mygame=new Game();}
+        savedgames=new ArrayList<Game>();
+        mygame=new Game();
+        }
         public void set_gui(Controller cont)
         {
         buttons[0]=cont.videobutton;
@@ -107,10 +116,12 @@ class App implements Serializable {
 
 class Game
 {
+    String name;
     private MediaPlayer[] sounds;
     private TextArea[] labels;
     private ImageView[] images;
-    private Button[] buttons;;
+    private Button[] buttons;
+    private Group patterns;
     private int starcount;
     private Ball b;
     private int level;
@@ -121,20 +132,21 @@ class Game
     Game()
     {
         sounds=new MediaPlayer[3];
-        images=new ImageView[3];
+        images=new ImageView[4];
         buttons=new Button[3];
         labels=new TextArea[2];
         starcount=0;
         level=1;
-        ballspeed=3;
+        ballspeed=4;
         starcount=0;
         //********This need to be initialised obstaclespeed=
         game=true;
+        name="default";
     }
     public void set_gui(Game_Controller run)
     {
         sounds[0]=run.music;
-//        sounds[1]=run.ping;
+        sounds[1]=run.star_collide;
 //        sounds[2]=run.gameover;
         buttons[0]=run.Pause_Button;
         labels[0]=run.Level_Label;
@@ -143,6 +155,8 @@ class Game
         images[0]=run.Obstacle;
         images[1]=run.color_switcher;
         images[2]=run.star;
+        images[3]=run.Hand;
+        patterns=run.scroll_element;
 //        System.out.println("Gui set finish");
     }
     public void IncreaseLevel()
@@ -198,7 +212,7 @@ class Game
     }
     private boolean drop()
     {
-        if (b.getY() >= 100)
+        if (b.getY()>=100)
         {
             return true;
         }
@@ -212,6 +226,10 @@ class Game
     {
         b.setY(b.getY()+ballspeed);
         //THIS IS GAME_OVER
+        TranslateTransition translate = new TranslateTransition(Duration.millis(25),patterns);
+        translate.setByY(-1);
+        translate.setCycleCount(1);
+        translate.play();
         if(drop())
         {
             try
@@ -229,7 +247,12 @@ class Game
     private boolean CollisionStar()
     {
         //in deadline 3
-        return true;
+        if(b.check_collison(images[2])) {
+            updateStars(1);
+            sounds[1].play();
+            return true;
+        }
+        return false;
     }
     public boolean isCollisionObstacle()
     {
@@ -253,7 +276,7 @@ class Game
     {
         labels[0].setText("LEVEL "+getLevel());
     }
-    //+Serialize(): void 
+    //+Serialize(): void
 }
 class Ball
 {
@@ -270,6 +293,14 @@ class Ball
         ball=b;
         speed=y;
     }
+    public boolean check_collison(ImageView a) {
+        if (a.getLayoutBounds().intersects(ball.getLayoutBounds()))
+        {
+            System.out.println("Touched");
+            return true;
+        }
+        return false;
+    }
     public void setY(double x)
     {
         ball.setCenterY(x);
@@ -285,6 +316,10 @@ class Ball
     public double getX()
     {
         return ball.getCenterX();
+    }
+    public double getLayoutY()
+    {
+        return ball.getLayoutY();
     }
 }
 class Obstacle
