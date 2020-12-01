@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.media.MediaPlayer?>
+<?import javafx.scene.media.Media?>
+<Scene fx:id="Game_Scene" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
+    <ScrollPane onKeyPressed="#check">
+        <content>
+            <VBox onKeyPressed="#check">
+                <children>
+                    <MediaView>
+                        <mediaPlayer>
+                            <MediaPlayer fx:id="music" autoPlay="true">
+                                <media>
+                                    <Media source="@vid/GAME_MUSIC.wav" />
+                                </media>
+                            </MediaPlayer>
+                            <MediaPlayer fx:id="star_collide" autoPlay="false">
+                                <media>
+                                    <Media source="@vid/star_add.mpeg" />
+                                </media>
+                            </MediaPlayer>
+                        </mediaPlayer>
+                    </MediaView>
+                </children>
+                <children>
+                    <AnchorPane onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
+                        <children>
+                     <Group fx:id="scroll_element" layoutX="420.0" layoutY="-3.0">
+                        <children>
+                                  <ImageView fitHeight="81.0" fitWidth="74.0" layoutX="160.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../star.png" />
+                                      </image>
+                                  </ImageView>
+                                  <ImageView fx:id="Obstacle" fitHeight="284.0" fitWidth="294.0" layoutX="53.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../obstacle-removebg.png" />
+                                      </image>
+                                  </ImageView>
+                                  <ImageView fx:id="color_switcher" fitHeight="66.0" fitWidth="59.0" layoutX="167.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../switcher.jpg" />
+                                      </image>
+                                  </ImageView>
+                        </children>
+                     </Group>
+                            <ImageView fx:id="Hand" fitHeight="40.0" fitWidth="40.0" layoutX="595.0" layoutY="601.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../handbgless.png" />
+                                </image>
+                            </ImageView>
+                            <Circle fx:id="Ball" fill="#e8ff1f" layoutX="615.0" layoutY="579.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+
+
+                            <Button fx:id="Pause_Button" alignment="CENTER" layoutX="928.0" layoutY="27.0" mnemonicParsing="false" onAction="#pause" prefHeight="112.0" prefWidth="136.0" style="-fx-background-color: None; -fx-border-color: White; -fx-border-width: 3;" text="Pause Game " textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                <font>
+                                    <Font name="Algerian" size="28.0" />
+                                </font>
+                            </Button>
+                            
+                            <ImageView fitHeight="201.0" fitWidth="259.0" layoutX="31.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../title.png" />
+                                </image>
+                            </ImageView>
+                            <TextArea fx:id="Level_Label" editable="false" layoutX="22.0" layoutY="528.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="265.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
+                                <font>
+                                    <Font name="Algerian" size="50.0" />
+                                </font>
+                            </TextArea>
+                            <TextArea fx:id="Star_Label" editable="false" layoutX="1088.0" layoutY="31.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="229.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
+                                <font>
+                                    <Font name="Algerian" size="50.0" />
+                                </font>
+                            </TextArea>
+                            <ImageView fx:id="star" fitHeight="76.0" fitWidth="79.0" layoutX="1193.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../star.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </AnchorPane>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+</Scene>
