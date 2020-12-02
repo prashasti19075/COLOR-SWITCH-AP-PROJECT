@@ -246,7 +246,7 @@ class Game
             }
             return;
         }
-        if(CollisionStar())
+        if(CollisionStar(getLevel()))
         {
             images[2].setVisible(false);
 
@@ -256,10 +256,12 @@ class Game
             b.ChooseRandomColor();
         }
     }
-    private boolean CollisionStar()
+    private boolean CollisionStar(int level)
     {
         //in deadline 3
         if(b.check_collison(images[2],patterns)) {
+            if(retStars()==level)
+            return false;
             updateStars(1);
             sounds[1].play();
             display_stars();
