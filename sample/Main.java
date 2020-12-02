@@ -83,6 +83,7 @@ class App implements Serializable {
         public void new_game() throws IOException
         {
             music.pause();
+            mygame=new Game();
             Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
             Main.window.setScene(gamepage);
         }
@@ -137,7 +138,7 @@ class Game
         labels=new TextArea[2];
         starcount=0;
         level=1;
-        ballspeed=4;
+        ballspeed=3;
         starcount=0;
         //********This need to be initialised obstaclespeed=
         game=true;
@@ -212,7 +213,7 @@ class Game
     }
     private boolean drop()
     {
-        if (b.getY()>=100)
+        if (b.getY()>700)
         {
             return true;
         }
@@ -243,13 +244,18 @@ class Game
             }
             return;
         }
+        if(CollisionStar())
+        {
+            images[2].setVisible(false);
+        }
     }
     private boolean CollisionStar()
     {
         //in deadline 3
-        if(b.check_collison(images[2])) {
+        if(b.check_collison(images[2],patterns)) {
             updateStars(1);
             sounds[1].play();
+            display_stars();
             return true;
         }
         return false;
@@ -276,6 +282,10 @@ class Game
     {
         labels[0].setText("LEVEL "+getLevel());
     }
+    public void display_stars()
+    {
+        labels[1].setText(""+retStars());
+    }
     //+Serialize(): void
 }
 class Ball
@@ -293,8 +303,9 @@ class Ball
         ball=b;
         speed=y;
     }
-    public boolean check_collison(ImageView a) {
-        if (a.getLayoutBounds().intersects(ball.getLayoutBounds()))
+    public boolean check_collison(ImageView a,Group scroll_element) {
+
+        if (Math.abs((a.getLayoutY()+scroll_element.getTranslateY()+80)- ball.getLayoutY())<2)
         {
             System.out.println("Touched");
             return true;
@@ -303,21 +314,9 @@ class Ball
     }
     public void setY(double x)
     {
-        ball.setCenterY(x);
+        ball.setLayoutY(x);
     }
     public double getY()
-    {
-        return ball.getCenterY();
-    }
-    public void setX(double x)
-    {
-        ball.setCenterX(x);
-    }
-    public double getX()
-    {
-        return ball.getCenterX();
-    }
-    public double getLayoutY()
     {
         return ball.getLayoutY();
     }

@@ -84,6 +84,7 @@ public class Controller implements Initializable {
     @FXML
     void Begin_New() throws IOException
     {
+//        Main.colorswitch.mygame=new Game();
         Main.colorswitch.new_game();
     }
     @FXML

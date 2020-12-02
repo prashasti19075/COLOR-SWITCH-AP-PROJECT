@@ -62,7 +62,7 @@ public class Game_Controller<e> implements Initializable {
 
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
         {
-            System.out.println(" Y (layout): "+Ball.getLayoutY()+"Y (center): "+ Ball.getCenterY());
+            System.out.println(" Y (layout): "+Ball.getLayoutY()+"Star Y (getY) "+(star.getLayoutY()+scroll_element.getTranslateY()));
             Main.colorswitch.mygame.playgame();
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -90,7 +90,7 @@ public class Game_Controller<e> implements Initializable {
         }
         Timeline move_ball= new Timeline(new KeyFrame(Duration.seconds(0.025), ev2->
         {
-            Ball.setCenterY(Ball.getCenterY()-30);
+            Ball.setLayoutY(Ball.getLayoutY()-20);
         }));
         move_ball.setCycleCount(1);
         move_ball.play();

@@ -35,9 +35,9 @@
                         <children>
                      <Group fx:id="scroll_element" layoutX="420.0" layoutY="-3.0">
                         <children>
-                                  <ImageView fitHeight="81.0" fitWidth="74.0" layoutX="160.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+                                  <ImageView fx:id="star" fitHeight="81.0" fitWidth="74.0" layoutX="160.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
                                       <image>
-                                          <Image url="@../star.png" />
+                                          <Image  url="@../star.png" />
                                       </image>
                                   </ImageView>
                                   <ImageView fx:id="Obstacle" fitHeight="284.0" fitWidth="294.0" layoutX="53.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
@@ -81,7 +81,7 @@
                                     <Font name="Algerian" size="50.0" />
                                 </font>
                             </TextArea>
-                            <ImageView fx:id="star" fitHeight="76.0" fitWidth="79.0" layoutX="1193.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fitHeight="76.0" fitWidth="79.0" layoutX="1193.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../star.png" />
                                 </image>
