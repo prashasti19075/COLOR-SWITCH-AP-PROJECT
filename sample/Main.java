@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -22,6 +23,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 import static javafx.fxml.FXMLLoader.load;
@@ -247,6 +249,11 @@ class Game
         if(CollisionStar())
         {
             images[2].setVisible(false);
+
+        }
+        if(CollisionColorswitcher())
+        {
+            b.ChooseRandomColor();
         }
     }
     private boolean CollisionStar()
@@ -260,6 +267,14 @@ class Game
         }
         return false;
     }
+    private boolean CollisionColorswitcher()
+    {
+        //in deadline 3
+        if(b.check_collison_cs(images[1],patterns)) {
+            return true;
+        }
+        return false;
+    }
     public boolean isCollisionObstacle()
     {
         //in deadline 3
@@ -269,6 +284,7 @@ class Game
     {
         //for levels in deadline 3
     }
+
     public void DisplayObstacles()
     {
         //change images[0] to something in terms of current obstacle
@@ -303,9 +319,31 @@ class Ball
         ball=b;
         speed=y;
     }
+    public void ChooseRandomColor()
+    {
+        //for levels in deadline 3
+        String[] color=new String[4];
+        color[0]="#ffff00";
+        color[1]="#66ffff";
+        color[2]="#ff3399";
+        color[3]="#9966ff";
+        Random rand = new Random();
+        int randomNum = rand.nextInt(4) ;
+        System.out.println("random no:"+randomNum+" String "+ color[randomNum]);
+        ball.setFill(Paint.valueOf(color[randomNum]));
+    }
     public boolean check_collison(ImageView a,Group scroll_element) {
 
         if (Math.abs((a.getLayoutY()+scroll_element.getTranslateY()+80)- ball.getLayoutY())<2)
+        {
+            System.out.println("Touched");
+            return true;
+        }
+        return false;
+    }
+    public boolean check_collison_cs(ImageView a,Group scroll_element) {
+
+        if (Math.abs((a.getLayoutY()+scroll_element.getTranslateY()+40)- ball.getLayoutY())<2)
         {
             System.out.println("Touched");
             return true;

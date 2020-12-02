@@ -20,9 +20,10 @@ public class Pause_Controller{
 
     }
     @FXML
-    public void Restart()
-    {
-
+    public void Restart() throws IOException {
+        Main.colorswitch.mygame=new Game();
+        Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+        Main.window.setScene(gamepage);
     }
     @FXML
     public void SaveandExit(){

@@ -62,7 +62,7 @@ public class Game_Controller<e> implements Initializable {
 
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->
         {
-            System.out.println(" Y (layout): "+Ball.getLayoutY()+"Star Y (getY) "+(star.getLayoutY()+scroll_element.getTranslateY()));
+//            System.out.println(" Y (layout): "+Ball.getLayoutY()+"Star Y (getY) "+(star.getLayoutY()+scroll_element.getTranslateY()));
             Main.colorswitch.mygame.playgame();
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
