@@ -28,7 +28,6 @@ public class Game_Controller<e> implements Initializable {
     MediaPlayer star_collide;
     @FXML
     Group scroll_element;
-
     @FXML
     Group scroll_element2;
     @FXML
@@ -61,8 +60,8 @@ public class Game_Controller<e> implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         Main.colorswitch.mygame.set_gui(this);
-        Main.colorswitch.mygame.DisplayScore();
-        Main.colorswitch.mygame.display();
+        Main.colorswitch.mygame.display_score();
+        Main.colorswitch.mygame.display_level();
         Ball.setCenterY(0.0);
         music.setOnEndOfMedia(() -> {
             music.seek(Duration.ZERO);
@@ -99,19 +98,18 @@ public class Game_Controller<e> implements Initializable {
         if(scrollcounter==0){
             Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
             {
-                Ball.setLayoutY(Ball.getLayoutY() - 20);
+                Ball.setLayoutY(Ball.getLayoutY() - 10);
             }));
             move_ball.setCycleCount(1);
             move_ball.play();
         }
-            System.out.println("Reached");
             TranslateTransition translate = new TranslateTransition(Duration.millis(10),scroll_element);
-            translate.setByY(30);
+            translate.setByY(40);
             translate.setCycleCount(1);
             translate.play();
 
             TranslateTransition translate2 = new TranslateTransition(Duration.millis(10),scroll_element2);
-           translate2.setByY(30);
+           translate2.setByY(40);
           translate2.setCycleCount(1);
           translate2.play();
           timeline.play();
