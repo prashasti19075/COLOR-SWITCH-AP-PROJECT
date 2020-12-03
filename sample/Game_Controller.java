@@ -28,6 +28,15 @@ public class Game_Controller<e> implements Initializable {
     MediaPlayer star_collide;
     @FXML
     Group scroll_element;
+
+    @FXML
+    Group scroll_element2;
+    @FXML
+    ImageView Obstacle2;
+    @FXML
+    ImageView color_switcher2;
+    @FXML
+    ImageView star2;
     @FXML
     TextArea Star_Label;
     @FXML
@@ -83,26 +92,29 @@ public class Game_Controller<e> implements Initializable {
     public void check()
     {
         timeline.pause();
-        if(not_enable==false)
-        {
-            not_enable=true;
+        if(not_enable==false) {
+            not_enable = true;
             Hand.setVisible(false);
         }
-        Timeline move_ball= new Timeline(new KeyFrame(Duration.seconds(0.025), ev2->
-        {
-            Ball.setLayoutY(Ball.getLayoutY()-20);
-        }));
-        move_ball.setCycleCount(1);
-        move_ball.play();
-        scrollcounter++;
-            if(scrollcounter==1) {
-        TranslateTransition translate = new TranslateTransition(Duration.millis(10),scroll_element);
-        translate.setByY(10);
-        translate.setCycleCount(1);
-        translate.play();
-                scrollcounter=0;
-            }
-        timeline.play();
+        if(scrollcounter==0){
+            Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
+            {
+                Ball.setLayoutY(Ball.getLayoutY() - 20);
+            }));
+            move_ball.setCycleCount(1);
+            move_ball.play();
+        }
+            System.out.println("Reached");
+            TranslateTransition translate = new TranslateTransition(Duration.millis(10),scroll_element);
+            translate.setByY(30);
+            translate.setCycleCount(1);
+            translate.play();
+
+            TranslateTransition translate2 = new TranslateTransition(Duration.millis(10),scroll_element2);
+           translate2.setByY(30);
+          translate2.setCycleCount(1);
+          translate2.play();
+          timeline.play();
 
     }
     @FXML

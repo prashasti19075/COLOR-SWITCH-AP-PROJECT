@@ -50,17 +50,14 @@ class App implements Serializable {
     Button[] buttons;
     MediaPlayer music;
     private static int totalstars;
-    ArrayList<Game> savedgames;
     Game mygame;
     static int video=0;
-    Controller cont;
     App()
         {
         images = new ImageView[5];
         buttons = new Button[4];
         images = new ImageView[5];
         buttons = new Button[4];
-        savedgames=new ArrayList<Game>();
         mygame=new Game();
         }
         public void set_gui(Controller cont)
@@ -125,6 +122,7 @@ class Game
     private ImageView[] images;
     private Button[] buttons;
     private Group patterns;
+    private Group next_patterns;
     private int starcount;
     private Ball b;
     private int level;
@@ -135,7 +133,7 @@ class Game
     Game()
     {
         sounds=new MediaPlayer[3];
-        images=new ImageView[4];
+        images=new ImageView[7];
         buttons=new Button[3];
         labels=new TextArea[2];
         starcount=0;
@@ -159,7 +157,13 @@ class Game
         images[1]=run.color_switcher;
         images[2]=run.star;
         images[3]=run.Hand;
+
         patterns=run.scroll_element;
+        images[4]=run.color_switcher2;
+        images[5]=run.Obstacle2;
+        images[6]=run.star2;
+
+        next_patterns=run.scroll_element2;
 //        System.out.println("Gui set finish");
     }
     public void IncreaseLevel()
@@ -227,12 +231,19 @@ class Game
     }
     public void playgame()
     {
+        //ISKO MAKE IN TERMS OF GENERAL BALL SPEED
         b.setY(b.getY()+ballspeed);
         //THIS IS GAME_OVER
         TranslateTransition translate = new TranslateTransition(Duration.millis(25),patterns);
-        translate.setByY(-1);
+        translate.setByY(-3);
         translate.setCycleCount(1);
         translate.play();
+
+        TranslateTransition translate2 = new TranslateTransition(Duration.millis(25),next_patterns);
+        translate2.setByY(-3);
+        translate2.setCycleCount(1);
+        translate2.play();
+
         if(drop())
         {
             try
@@ -246,20 +257,29 @@ class Game
             }
             return;
         }
-        if(CollisionStar(getLevel()))
+        if(CollisionStar(getLevel(),images[2]))
         {
             images[2].setVisible(false);
 
         }
-        if(CollisionColorswitcher())
+        if(CollisionStar(getLevel(),images[6]))
+        {
+            images[6].setVisible(false);
+
+        }
+        if(CollisionColorswitcher(images[1]))
+        {
+            b.ChooseRandomColor();
+        }
+        if(CollisionColorswitcher(images[4]))
         {
             b.ChooseRandomColor();
         }
     }
-    private boolean CollisionStar(int level)
+    private boolean CollisionStar(int level,ImageView Starno)
     {
         //in deadline 3
-        if(b.check_collison(images[2],patterns)) {
+        if(b.check_collison(Starno,patterns)) {
             if(retStars()==level)
             return false;
             updateStars(1);
@@ -269,10 +289,10 @@ class Game
         }
         return false;
     }
-    private boolean CollisionColorswitcher()
+    private boolean CollisionColorswitcher(ImageView Colorswitcher)
     {
         //in deadline 3
-        if(b.check_collison_cs(images[1],patterns)) {
+        if(b.check_collison_cs(Colorswitcher,patterns)) {
             return true;
         }
         return false;
@@ -285,16 +305,23 @@ class Game
     private void ChooseRandomObstacle()
     {
         //for levels in deadline 3
+
     }
 
     public void DisplayObstacles()
     {
         //change images[0] to something in terms of current obstacle
-        RotateTransition rt = new RotateTransition(Duration.millis(3000), images[0]);
+        RotateTransition rt = new RotateTransition(Duration.millis(5000), images[0]);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
+
+        RotateTransition rt2 = new RotateTransition(Duration.millis(5000), images[5]);
+        rt2.setByAngle(360);
+        rt2.setCycleCount(Animation.INDEFINITE);
+        rt2.setInterpolator(Interpolator.LINEAR);
+        rt2.play();
     }
     public void display()
     {
@@ -325,10 +352,10 @@ class Ball
     {
         //for levels in deadline 3
         String[] color=new String[4];
-        color[0]="#ffff00";
-        color[1]="#66ffff";
-        color[2]="#ff3399";
-        color[3]="#9966ff";
+        color[0]="#0000ff";
+        color[1]="#ffff00";
+        color[2]="#ff0000";
+        color[3]="#660066";
         Random rand = new Random();
         int randomNum = rand.nextInt(4) ;
         System.out.println("random no:"+randomNum+" String "+ color[randomNum]);
