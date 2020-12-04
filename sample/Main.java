@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -155,7 +156,7 @@ class Game
         b=new Ball(run.Ball,ballspeed);
         images[3]=run.Hand;
         main_pane=run.Main_Pane;
-        Obstacle o1=new Obstacle1(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
+        Obstacle o1=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
         obstacles.add(o1);
 
         Obstacle gen = null;
@@ -310,6 +311,8 @@ class Game
         color_switcher.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\switcher.png")));
 
         ImageView obstacle=new ImageView();
+        ImageView obs_2=new ImageView();
+        //Only in case of obstacles 3 and 5
 
         Group pattern=new Group();
         main_pane.getChildren().add(pattern);
@@ -329,11 +332,12 @@ class Game
         color_switcher.setFitHeight(66.0);
         color_switcher.setFitWidth(59.0);
         color_switcher.setLayoutX(168.0);
-        color_switcher.setLayoutY(69.0);
+        color_switcher.setLayoutY(50.0);
         color_switcher.setPickOnBounds(true);
         color_switcher.setPreserveRatio(true);
 
         Obstacle new_obstacle=null;
+
         Random rand = new Random();
         int randomNum = rand.nextInt(5) +1;
 //        System.out.println(" Random Number is: "+ randomNum);
@@ -342,30 +346,60 @@ class Game
             case 1:
                 obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs1.png")));
                 new_obstacle=new Obstacle1(obstacle,star,color_switcher,pattern);
+                pattern.getChildren().add(obstacle);
+                obstacle.setFitHeight(284.0);
+                obstacle.setFitWidth(294.0);
+                obstacle.setLayoutX(53.00);
+                obstacle.setLayoutY(148.00);
                 break;
             case 2:
                 obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs2.png")));
                 new_obstacle=new Obstacle2(obstacle,star,color_switcher,pattern);
+                pattern.getChildren().add(obstacle);
+                obstacle.setFitHeight(284.0);
+                obstacle.setFitWidth(294.0);
+                obstacle.setLayoutX(53.00);
+                obstacle.setLayoutY(148.00);
                 break;
             case 3:
                 obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs3.png")));
-                new_obstacle=new Obstacle3(obstacle,star,color_switcher,pattern);
+                obs_2.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs3.png")));
+                new_obstacle=new Obstacle3(obstacle,obs_2,star,color_switcher,pattern);
+                pattern.getChildren().add(obstacle);
+                pattern.getChildren().add(obs_2);
+                obstacle.setFitHeight(361.0);
+                obstacle.setFitWidth(185.0);
+                obs_2.setFitHeight(361.0);
+                obs_2.setFitWidth(185.0);
+                obstacle.setLayoutX(30.00);
+                obstacle.setLayoutY(167.00);
+                obs_2.setLayoutX(170.00);
+                obs_2.setLayoutY(167.00);
+                pattern.resize(325,313);
+                obs_2.setPickOnBounds(true);
+                obs_2.setPreserveRatio(true);
+                obs_2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                 break;
             case 4:
                 obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs4.png")));
                 new_obstacle=new Obstacle4(obstacle,star,color_switcher,pattern);
+                pattern.getChildren().add(obstacle);
+                obstacle.setFitHeight(284.0);
+                obstacle.setFitWidth(294.0);
+                obstacle.setLayoutX(53.00);
+                obstacle.setLayoutY(148.00);
                 break;
             case 5:
                 obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs5.png")));
                 new_obstacle=new Obstacle5(obstacle,star,color_switcher,pattern);
+                pattern.getChildren().add(obstacle);
+                obstacle.setFitHeight(284.0);
+                obstacle.setFitWidth(294.0);
+                obstacle.setLayoutX(53.00);
+                obstacle.setLayoutY(148.00);
                 break;
         }
 
-        pattern.getChildren().add(obstacle);
-        obstacle.setFitHeight(284.0);
-        obstacle.setFitWidth(294.0);
-        obstacle.setLayoutX(53.00);
-        obstacle.setLayoutY(148.00);
         obstacle.setPickOnBounds(true);
         obstacle.setPreserveRatio(true);
 
@@ -530,10 +564,12 @@ class Obstacle2 extends Obstacle{
     }
 }
 class Obstacle3 extends Obstacle{
-    Obstacle3(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
+    ImageView obs_2;
+    Obstacle3(ImageView obstacle,ImageView obs_2,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
+        this.obs_2=obs_2;
         this.patterns=patterns;
     }
     @Override
@@ -541,6 +577,12 @@ class Obstacle3 extends Obstacle{
     {
         rt= new RotateTransition(Duration.millis(5000),obstacle);
         rt.setByAngle(360);
+        rt.setCycleCount(Animation.INDEFINITE);
+        rt.setInterpolator(Interpolator.LINEAR);
+        rt.play();
+
+        rt= new RotateTransition(Duration.millis(5000),obs_2);
+        rt.setByAngle(-360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
@@ -560,6 +602,7 @@ class Obstacle4 extends Obstacle{
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
+        rt.setAutoReverse(true);
         rt.play();
     }
 }

@@ -11,11 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.media.MediaPlayer?>
 <?import javafx.scene.media.Media?>
-
 
 <Scene fx:id="Game_Scene" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
     <ScrollPane onKeyPressed="#check">
@@ -78,7 +76,7 @@
                                     <Image url="@../title.png" />
                                 </image>
                             </ImageView>
-                            <TextArea fx:id="Level_Label" editable="false" layoutX="22.0" layoutY="528.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="265.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
+                            <TextArea fx:id="Level_Label" editable="false" layoutX="22.0" layoutY="528.0" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="102.0" prefWidth="346.0" style="-fx-background-color: black; -fx-control-inner-background:#000000; -fx-text-fill:                                 #ffffff; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; ">
                                 <font>
                                     <Font name="Algerian" size="50.0" />
                                 </font>
