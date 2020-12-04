@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -17,6 +18,8 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -117,7 +120,7 @@ class Game
     private TextArea[] labels;
     private ImageView[] images;
     private Button[] buttons;
-
+    AnchorPane main_pane;
     private int starcount;
     private Ball b;
     private int level;
@@ -138,6 +141,7 @@ class Game
         starcount=0;
         //********This need to be initialised obstaclespeed=
         game=true;
+
         obstacles=new ArrayList<>();
     }
     public void set_gui(Game_Controller run)
@@ -150,17 +154,20 @@ class Game
         labels[1]=run.Star_Label;
         b=new Ball(run.Ball,ballspeed);
         images[3]=run.Hand;
-
+        main_pane=run.Main_Pane;
         Obstacle o1=new Obstacle1(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
         obstacles.add(o1);
-        //Just for the very first time.
-//        obstacles.get(0).set_claimed(true);
-//        obstacles.get(0).getMystar().set_claimed(true);
 
-        Obstacle o2=new Obstacle1(run.Obstacle2,run.star2, run.color_switcher2,run.scroll_element2);
-        obstacles.add(o2);
-
-//        System.out.println("Gui set finish");
+        Obstacle gen = null;
+        for(int i=0;i<10;i++) {
+            try {
+                gen = ChooseRandomObstacle(obstacles.get(i).get_position());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            obstacles.add(gen);
+        }
+//        System.out.println("Size of obstacle Array: "+obstacles.size());
     }
     public void updateStars(int x)
     {
@@ -217,7 +224,6 @@ class Game
             return 0;
         }
     }
-
     private boolean drop()
     {
         if (b.getY()>700)
@@ -229,6 +235,13 @@ class Game
     private void game_over() throws IOException {
         Scene gameover = FXMLLoader.load(getClass().getResource("Game_Over.fxml"));
         Main.window.setScene(gameover);
+    }
+    public void Translate_UP()
+    {
+        for(int i=0;i<obstacles.size();i++) {
+//            System.out.println(" Pattern moves down");
+            obstacles.get(i).Translate(10, 40, 1);
+        }
     }
     public void playgame()
     {
@@ -248,27 +261,18 @@ class Game
             }
             return;
         }
-        TranslateTransition[] translate_a=new TranslateTransition[obstacles.size()];
         for(int i=0;i<obstacles.size();i++)
-        {
-            obstacles.get(i).Translate(translate_a[i]);
-        }
+            obstacles.get(i).Translate(25,-3,1);
         for(int i=0;i<obstacles.size();i++)
-        {
-            obstacles.get(i).star_collision(this) ;
-            Obstacle test=obstacles.get(i);
-        }
+            obstacles.get(i).star_collision(this);
         for(int i=0;i<obstacles.size();i++)
-        {
             obstacles.get(i).colorswitcher_collision(this);
-        }
     }
     public boolean CollisionStar(Star star, Group patterns)
     {
-//        System.out.println(""+Math.abs(patterns.getLayoutY()+patterns.getTranslateY()-b.getY()));
-        if(Math.abs(patterns.getLayoutY()+patterns.getTranslateY()-b.getY())<600 && star.is_notclaimed() && b.check_collison(star.getimage(),patterns))
+        if(star.is_notclaimed() && b.check_collison(star.getimage(),patterns))
         {
-            System.out.println(star.getimage()+" is touching");
+//            System.out.println(star.getimage()+" is touching");
             updateStars(1);
             sounds[1].play();
             display_score();
@@ -281,9 +285,9 @@ class Game
     public boolean CollisionColorSwitcher(ImageView ColorSwitcher, Group patterns,boolean is_enable)
     {   //in deadline 3
 //
-        if(Math.abs(patterns.getLayoutY()+patterns.getTranslateY()-b.getY())<100 && is_enable && b.check_collison_cs(ColorSwitcher,patterns))
+        if(is_enable && b.check_collison_cs(ColorSwitcher,patterns))
         {
-            System.out.println(ColorSwitcher+" is touching");
+//            System.out.println(ColorSwitcher+" is touching");
             b.ChooseRandomColor();
             ColorSwitcher.setVisible(false);
             IncreaseLevel();
@@ -297,50 +301,81 @@ class Game
         //in deadline 3
         return true;
     }
-    private void ChooseRandomObstacle() {
+    private Obstacle ChooseRandomObstacle( double group_layout_y) throws FileNotFoundException {
         //for levels in deadline 3
-        double color_switch_layoutx = obstacles.get(0).colorswitcher.getLayoutX();
-        double color_switch_layouty = obstacles.get(0).colorswitcher.getLayoutY();
-        double star_layoutx = obstacles.get(0).Star.getLayoutX();
-        double star_layouty = obstacles.get(0).Star.getLayoutY();
-        double obstacle_layoutx = obstacles.get(0).obstacle.getLayoutX();
-        double obstacle_layouty = obstacles.get(0).obstacle.getLayoutY();
-//        ImageView star=new ImageView();
-//        star.setImage(new Image("../star.png"));
-//        ImageView color_switcher=new ImageView();
-//        color_switcher.setImage(new Image("../"));
-//        Group n_grp=new Group();
-//        n_grp.getChildren().add()
+         ImageView star=new ImageView();
+        star.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\star.png")));
+
+        ImageView color_switcher=new ImageView();
+        color_switcher.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\switcher.png")));
+
+        ImageView obstacle=new ImageView();
+
+        Group pattern=new Group();
+        main_pane.getChildren().add(pattern);
+
+        pattern.setLayoutY(group_layout_y-450.00);
+        pattern.setLayoutX(420.0);
+
+        pattern.getChildren().add(star);
+        star.setFitHeight(81.0);
+        star.setFitWidth(74.0);
+        star.setLayoutX(160.0);
+        star.setLayoutY(250.0);
+        star.setPickOnBounds(true);
+        star.setPreserveRatio(true);
+
+        pattern.getChildren().add(color_switcher);
+        color_switcher.setFitHeight(66.0);
+        color_switcher.setFitWidth(59.0);
+        color_switcher.setLayoutX(168.0);
+        color_switcher.setLayoutY(69.0);
+        color_switcher.setPickOnBounds(true);
+        color_switcher.setPreserveRatio(true);
+
+        Obstacle new_obstacle=null;
+        Random rand = new Random();
+        int randomNum = rand.nextInt(5) +1;
+//        System.out.println(" Random Number is: "+ randomNum);
+        switch(randomNum)
+        {
+            case 1:
+                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs1.png")));
+                new_obstacle=new Obstacle1(obstacle,star,color_switcher,pattern);
+                break;
+            case 2:
+                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs2.png")));
+                new_obstacle=new Obstacle2(obstacle,star,color_switcher,pattern);
+                break;
+            case 3:
+                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs3.png")));
+                new_obstacle=new Obstacle3(obstacle,star,color_switcher,pattern);
+                break;
+            case 4:
+                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs4.png")));
+                new_obstacle=new Obstacle4(obstacle,star,color_switcher,pattern);
+                break;
+            case 5:
+                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs5.png")));
+                new_obstacle=new Obstacle5(obstacle,star,color_switcher,pattern);
+                break;
+        }
+
+        pattern.getChildren().add(obstacle);
+        obstacle.setFitHeight(284.0);
+        obstacle.setFitWidth(294.0);
+        obstacle.setLayoutX(53.00);
+        obstacle.setLayoutY(148.00);
+        obstacle.setPickOnBounds(true);
+        obstacle.setPreserveRatio(true);
 
 
-//        Random rand = new Random();
-//        int randomNum = rand.nextInt(4) +1;
-//        switch(randomNum)
-//        {
-//            case 1:
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            case 4:
-//                break;
-//            case 5:
-//                break;
-//        }
-//        Group ptrns=new Group();
-//        ptrns.getChildren().add(run.Obstacle2);
-//        ptrns.getChildren().add(run.star2);
-//        ptrns.getChildren().add(run.color_switcher2);
+        return new_obstacle;
     }
     public void DisplayObstacles()
     {
-        //change images[0] to something in terms of current obstacle
-
         RotateTransition rt_array[]=new RotateTransition[obstacles.size()];
-        for(int i=0;i<obstacles.size();i++) {
-            obstacles.get(i).rotate(rt_array[i]);
-        }
+        for(int i=0;i<obstacles.size();i++) obstacles.get(i).rotate(rt_array[i]);
     }
     //+Serialize(): void
 }
@@ -369,7 +404,7 @@ class Ball
         color[3]="#660066";
         Random rand = new Random();
         int randomNum = rand.nextInt(4) ;
-        System.out.println("random no:"+randomNum+" String "+ color[randomNum]);
+//        System.out.println("random no:"+randomNum+" String "+ color[randomNum]);
         colorname=color[randomNum];
         display_color();
     }
@@ -382,23 +417,21 @@ class Ball
         return colorname;
     }
     public boolean check_collison(ImageView a,Group scroll_element) {
-//        System.out.println(" Image is: "+a+" Star Position: "+
-//                a.getLayoutY()+" "+scroll_element.getTranslateY()+80+" Ball Position:"+ball.getLayoutY());
-        if (Math.abs(Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+80)- ball.getLayoutY())<2)
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<2)
         {
-            System.out.println("Touched");
+//            System.out.println("Touched");
             return true;
         }
         return false;
     }
     public boolean check_collison_cs(ImageView a,Group scroll_element) {
 
-        if (Math.abs(Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+40)- ball.getLayoutY())<2)
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<2)
         {
-            System.out.println("Touched");
+//            System.out.println("Color Switcher Touched");
             return true;
         }
-        System.out.println("Called but not collision"+Math.abs((a.getLayoutY()+scroll_element.getTranslateY()+40)- ball.getLayoutY()));
+//        System.out.println("Called but not collision"+Math.abs((a.getLayoutY()+scroll_element.getTranslateY()+40)- ball.getLayoutY()));
         return false;
     }
     public void setY(double x)
@@ -412,12 +445,12 @@ class Ball
 }
 abstract class Obstacle
 {
-    ImageView obstacle;
-    ImageView Star;
-    Star mystar;
-    ImageView colorswitcher;
-    boolean enable_colorswitch;
-    Group patterns;
+    protected ImageView obstacle;
+    protected ImageView Star;
+    protected Star mystar;
+    protected ImageView colorswitcher;
+    protected boolean enable_colorswitch;
+    protected Group patterns;
     Obstacle(ImageView Star,ImageView colorswitcher)
     {
         this.Star=Star;
@@ -425,11 +458,11 @@ abstract class Obstacle
         this.enable_colorswitch=true;
         mystar=new Star(Star,true);
     }
-    public void Translate(TranslateTransition translate)
+    public void Translate(int duration,int translate_by,int cycle_count)
     {
-        translate= new TranslateTransition(Duration.millis(25),patterns);
-        translate.setByY(-3);
-        translate.setCycleCount(1);
+        TranslateTransition translate= new TranslateTransition(Duration.millis(duration),patterns);
+        translate.setByY(translate_by);
+        translate.setCycleCount(cycle_count);
         translate.play();
     }
     public boolean star_collision(Game g)
@@ -455,9 +488,12 @@ abstract class Obstacle
         return mystar;
     }
     abstract void rotate(RotateTransition rt);
+    public double get_position()
+    {
+        return this.patterns.getLayoutY();
+    }
     //1. Rotate- abstract method different for everyone
     //2. Translate
-
 }
 class Obstacle1 extends Obstacle{
     Obstacle1(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
@@ -477,7 +513,7 @@ class Obstacle1 extends Obstacle{
     }
 }
 class Obstacle2 extends Obstacle{
-    Obstacle2(ImageView Star,ImageView colorswitcher,Group patterns)
+    Obstacle2(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
@@ -494,7 +530,7 @@ class Obstacle2 extends Obstacle{
     }
 }
 class Obstacle3 extends Obstacle{
-    Obstacle3(ImageView Star,ImageView colorswitcher,Group patterns)
+    Obstacle3(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
@@ -511,7 +547,7 @@ class Obstacle3 extends Obstacle{
     }
 }
 class Obstacle4 extends Obstacle{
-    Obstacle4(ImageView Star,ImageView colorswitcher,Group patterns)
+    Obstacle4(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
@@ -528,7 +564,7 @@ class Obstacle4 extends Obstacle{
     }
 }
 class Obstacle5 extends Obstacle{
-    Obstacle5(ImageView Star,ImageView colorswitcher,Group patterns)
+    Obstacle5(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
@@ -538,7 +574,7 @@ class Obstacle5 extends Obstacle{
     public void rotate(RotateTransition rt)
     {
         rt= new RotateTransition(Duration.millis(5000),obstacle);
-        rt.setByAngle(360);
+        rt.setByAngle(-360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();

@@ -11,9 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
+
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.media.MediaPlayer?>
 <?import javafx.scene.media.Media?>
+
 
 <Scene fx:id="Game_Scene" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
     <ScrollPane onKeyPressed="#check">
@@ -36,7 +38,7 @@
                     </MediaView>
                 </children>
                 <children>
-                    <AnchorPane onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
+                    <AnchorPane fx:id="Main_Pane" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
                         <children>
                      <Group fx:id="scroll_element" layoutX="420.0" layoutY="50.0">
                         <children>
@@ -47,7 +49,7 @@
                                   </ImageView>
                                   <ImageView fx:id="Obstacle" fitHeight="284.0" fitWidth="294.0" layoutX="53.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                                       <image>
-                                          <Image url="@../obstacle-removebg.png" />
+                                          <Image url="@../obs2.png" />
                                       </image>
                                   </ImageView>
                                   <ImageView fx:id="color_switcher" fitHeight="66.0" fitWidth="59.0" layoutX="168.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
@@ -55,25 +57,6 @@
                                           <Image url="@../switcher.png" />
                                       </image>
                                   </ImageView>
-                        </children>
-                     </Group>
-                     <Group fx:id="scroll_element2" layoutX="430.0" layoutY="-400.0">
-                        <children>
-                           <ImageView fx:id="star2" fitHeight="81.0" fitWidth="74.0" layoutX="160.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../star.png" />
-                              </image>
-                           </ImageView>
-                           <ImageView fx:id="Obstacle2" fitHeight="284.0" fitWidth="294.0" layoutX="53.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../obstacle-removebg.png" />
-                              </image>
-                           </ImageView>
-                           <ImageView fx:id="color_switcher2" fitHeight="66.0" fitWidth="59.0" layoutX="159.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../switcher.png" />
-                              </image>
-                           </ImageView>
                         </children>
                      </Group>
                             <ImageView fx:id="Hand" fitHeight="40.0" fitWidth="40.0" layoutX="595.0" layoutY="601.0" pickOnBounds="true" preserveRatio="true">
