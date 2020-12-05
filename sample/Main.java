@@ -51,6 +51,7 @@ class App implements Serializable {
     Button[] buttons;
     MediaPlayer music;
     private static int totalstars;
+    static Scene gamepage;
     Game mygame;
     static int video=0;
     App()
@@ -84,7 +85,7 @@ class App implements Serializable {
         {
             music.pause();
             mygame=new Game();
-            Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+            gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
             Main.window.setScene(gamepage);
         }
     public void setVideo()
