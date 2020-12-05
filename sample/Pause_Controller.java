@@ -17,7 +17,8 @@ public class Pause_Controller{
     @FXML
     public void resume()
     {
-
+        Game_Controller.timeline.play();
+        Main.window.setScene(App.gamepage);
     }
     @FXML
     public void Restart() throws IOException {
