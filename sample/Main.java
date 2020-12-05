@@ -305,10 +305,10 @@ class Game
     private Obstacle ChooseRandomObstacle( double group_layout_y) throws FileNotFoundException {
         //for levels in deadline 3
          ImageView star=new ImageView();
-        star.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\star.png")));
+        star.setImage(new Image(new FileInputStream("src\\star.png")));
 
         ImageView color_switcher=new ImageView();
-        color_switcher.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\switcher.png")));
+        color_switcher.setImage(new Image(new FileInputStream("src\\switcher.png")));
 
         ImageView obstacle=new ImageView();
         ImageView obs_2=new ImageView();
@@ -344,7 +344,7 @@ class Game
         switch(randomNum)
         {
             case 1:
-                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs1.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs1.png")));
                 new_obstacle=new Obstacle1(obstacle,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 obstacle.setFitHeight(284.0);
@@ -353,7 +353,7 @@ class Game
                 obstacle.setLayoutY(148.00);
                 break;
             case 2:
-                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs2.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs2.png")));
                 new_obstacle=new Obstacle2(obstacle,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 obstacle.setFitHeight(284.0);
@@ -362,8 +362,8 @@ class Game
                 obstacle.setLayoutY(148.00);
                 break;
             case 3:
-                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs3.png")));
-                obs_2.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs3.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs3.png")));
+                obs_2.setImage(new Image(new FileInputStream("src\\obs3.png")));
                 new_obstacle=new Obstacle3(obstacle,obs_2,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 pattern.getChildren().add(obs_2);
@@ -381,7 +381,7 @@ class Game
                 obs_2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                 break;
             case 4:
-                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs4.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs4.png")));
                 new_obstacle=new Obstacle4(obstacle,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 obstacle.setFitHeight(284.0);
@@ -390,7 +390,7 @@ class Game
                 obstacle.setLayoutY(148.00);
                 break;
             case 5:
-                obstacle.setImage(new Image(new FileInputStream("C:\\Users\\rachn\\Desktop\\java\\GUI\\src\\obs5.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs5.png")));
                 new_obstacle=new Obstacle5(obstacle,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 obstacle.setFitHeight(284.0);
