@@ -19,10 +19,7 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +27,34 @@ import static java.lang.Thread.sleep;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
+    public static void Serialize(Game a, String filename) throws IOException
+    {
+        ObjectOutputStream out = null;
+        try{
+            out = new ObjectOutputStream(new FileOutputStream("src\\sample\\savedgames\\"+filename));
+            out.writeObject(a);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            out.close();
+        }
+    }
+    public static Game Deserialize(String filename) throws IOException {
+        ObjectInputStream in = null;
+        Game newgame = null;
+        try{
+            in = new ObjectInputStream(new FileInputStream("src\\sample\\savedgames\\"+filename));
+            newgame = (Game) in.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            in.close();
+        }
+        return newgame;
+    }
     static App colorswitch =new App();
     static Stage window;
     static Scene Mainpage;
@@ -47,23 +72,23 @@ public class Main extends Application {
     }
 }
 class App implements Serializable {
-    ImageView[] images;
-    Button[] buttons;
-    MediaPlayer music;
+    private transient ImageView[] images;
+    private transient Button[] buttons;
+    private transient MediaPlayer music;
     private static int totalstars;
     static Scene gamepage;
     Game mygame;
     static int video=0;
     App()
-        {
+    {
         images = new ImageView[5];
         buttons = new Button[4];
         images = new ImageView[5];
         buttons = new Button[4];
         mygame=new Game();
-        }
-        public void set_gui(Controller cont)
-        {
+    }
+    public void set_gui(Controller cont)
+    {
         buttons[0]=cont.videobutton;
         buttons[1]=cont.New_Game;
         buttons[2]=cont.Resume_Game;
@@ -76,18 +101,18 @@ class App implements Serializable {
         images[4]=cont.Title_img;
 
         music=cont.musicPlayer;
-        }
-        public void exit_game()
-        {
-            Platform.exit();
-        }
-        public void new_game() throws IOException
-        {
-            music.pause();
-            mygame=new Game();
-            gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
-            Main.window.setScene(gamepage);
-        }
+    }
+    public void exit_game()
+    {
+        Platform.exit();
+    }
+    public void new_game() throws IOException
+    {
+        music.pause();
+        mygame=new Game();
+        gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+        Main.window.setScene(gamepage);
+    }
     public void setVideo()
     {
         video = 1;
@@ -110,24 +135,25 @@ class App implements Serializable {
     {
         totalstars+=stars;
     }
-    public void resume_game()
-    {
-        //deserialise the game and loads of functions
+    public void resume_game() throws IOException {
+        Scene displayoldgames = FXMLLoader.load(getClass().getResource("Display_Games.fxml"));
+        Main.window.setScene(displayoldgames);
+
     }
 }
 
-class Game
+class Game implements Serializable
 {
-    private MediaPlayer[] sounds;
-    private TextArea[] labels;
-    private ImageView[] images;
-    private Button[] buttons;
-    AnchorPane main_pane;
+    private transient MediaPlayer[] sounds;
+    private transient TextArea[] labels;
+    private transient ImageView[] images;
+    private transient Button[] buttons;
+    private transient AnchorPane main_pane;
     private int starcount;
     private Ball b;
     private int level;
     private double ballspeed;
-    ArrayList<Obstacle> obstacles;
+    private ArrayList<Obstacle> obstacles;
 
     private double obstaclespeed;
     Boolean game;
@@ -145,6 +171,10 @@ class Game
         game=true;
 
         obstacles=new ArrayList<>();
+    }
+    public void play_music()
+    {
+        sounds[0].play();
     }
     public void set_gui(Game_Controller run)
     {
@@ -202,14 +232,17 @@ class Game
     }
     public int  DisplayRevive(Button revive,int total_stars)
     {
-        if(total_stars>5)
+        if(total_stars>=5)
         {
             // revive button is eligible
             //decrease the stars
             //resume the game from the level we left on
-            if(starcount>5)
+            if(starcount>=5)
             {
                 starcount-=5;
+                Main.window.setScene(App.gamepage);
+                Main.colorswitch.mygame.play_music();
+                Game_Controller.timeline.play();
                 //return is basically how many stars need to be deducted from app ke total stars
                 return 0;
             }
@@ -217,6 +250,10 @@ class Game
             {
                 int app_stars=(5-starcount);
                 starcount=0;
+                Main.window.setScene(App.gamepage);
+                Game_Controller.timeline.play();
+                Main.colorswitch.mygame.play_music();
+
                 return app_stars;
             }
         }
@@ -306,7 +343,7 @@ class Game
     }
     private Obstacle ChooseRandomObstacle( double group_layout_y) throws FileNotFoundException {
         //for levels in deadline 3
-         ImageView star=new ImageView();
+        ImageView star=new ImageView();
         star.setImage(new Image(new FileInputStream("src\\star.png")));
 
         ImageView color_switcher=new ImageView();
@@ -415,9 +452,9 @@ class Game
     }
     //+Serialize(): void
 }
-class Ball
+class Ball implements Serializable
 {
-    private Circle ball;
+    private transient Circle ball;
     //store ball ka x
     //store ball ka y
     private int shape;
@@ -479,14 +516,14 @@ class Ball
         return ball.getLayoutY();
     }
 }
-abstract class Obstacle
+abstract class Obstacle implements Serializable
 {
-    protected ImageView obstacle;
-    protected ImageView Star;
-    protected Star mystar;
-    protected ImageView colorswitcher;
+    protected  transient ImageView obstacle;
+    protected transient ImageView Star;
+    protected transient Star mystar;
+    protected transient ImageView colorswitcher;
     protected boolean enable_colorswitch;
-    protected Group patterns;
+    protected transient Group patterns;
     Obstacle(ImageView Star,ImageView colorswitcher)
     {
         this.Star=Star;
@@ -503,13 +540,13 @@ abstract class Obstacle
     }
     public boolean star_collision(Game g)
     {
-       return g.CollisionStar(mystar,patterns);
+        return g.CollisionStar(mystar,patterns);
     }
     public boolean colorswitcher_collision(Game g)
     {
         boolean result=g.CollisionColorSwitcher(colorswitcher,patterns,enable_colorswitch);
-      if(result) set_claimed(false);
-      return result;
+        if(result) set_claimed(false);
+        return result;
     }
     public void set_claimed(boolean b)
     {
@@ -553,7 +590,7 @@ class Obstacle2 extends Obstacle{
     {
         super(Star,colorswitcher);
         this.obstacle=obstacle;
-         this.patterns=patterns;
+        this.patterns=patterns;
     }
     @Override
     public void rotate(RotateTransition rt)
@@ -566,7 +603,7 @@ class Obstacle2 extends Obstacle{
     }
 }
 class Obstacle3 extends Obstacle{
-    ImageView obs_2;
+    transient ImageView obs_2;
     Obstacle3(ImageView obstacle,ImageView obs_2,ImageView Star,ImageView colorswitcher,Group patterns)
     {
         super(Star,colorswitcher);
@@ -625,7 +662,7 @@ class Obstacle5 extends Obstacle{
         rt.play();
     }
 }
-class Star
+class Star implements Serializable
 {
     private ImageView starimage;
     private boolean enable_star;

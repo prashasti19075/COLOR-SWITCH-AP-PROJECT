@@ -57,7 +57,7 @@ public class Controller implements Initializable {
                 musicPlayer.play();
             }
         });
-        System.out.println(Main.colorswitch.is_video());
+//        System.out.println(Main.colorswitch.is_video());
         if (Main.colorswitch.is_video()) {
             videobutton.setDisable(false);
         } else {
@@ -68,7 +68,7 @@ public class Controller implements Initializable {
 
     @FXML
     void bonusVideo() throws IOException {
-        System.out.println("Bonus Availed");
+//        System.out.println("Bonus Availed");
         Main.colorswitch.setVideo();
         musicPlayer.pause();
         Main.colorswitch.bonusstars();
@@ -84,13 +84,11 @@ public class Controller implements Initializable {
     @FXML
     void Begin_New() throws IOException
     {
-//        Main.colorswitch.mygame=new Game();
+        Main.colorswitch.mygame=new Game();
         Main.colorswitch.new_game();
     }
     @FXML
     void Resume_old() throws IOException {
-        Scene displayoldgames = FXMLLoader.load(getClass().getResource("Display_Games.fxml"));
-        Main.window.setScene(displayoldgames);
-        //add a condition of while a valid selection is not made continue choosing
+        Main.colorswitch.resume_game();
     }
 }

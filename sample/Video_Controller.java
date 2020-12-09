@@ -40,7 +40,7 @@ public class Video_Controller implements Initializable
     @FXML
     void back() throws IOException 
     {
-        System.out.println("Back to Main");
+//        System.out.println("Back to Main");
         Scene MainPage = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Main.window.setScene(MainPage); 
     }

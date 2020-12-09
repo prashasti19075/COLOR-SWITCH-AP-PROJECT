@@ -4,6 +4,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +24,8 @@ public class Game_Over_Controller implements Initializable {
     @FXML
     public void Back() throws IOException
     {
+        int currstars=Main.colorswitch.mygame.retStars();
+        Main.colorswitch.updatestars(currstars);
         Scene homepage = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Main.window.setScene(homepage);
     }
@@ -26,25 +33,12 @@ public class Game_Over_Controller implements Initializable {
     public void Revive()
     {
         //load
-       int reduce= Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
-       Main.colorswitch.updatestars(-reduce);
+        int reduce= Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
+        Main.colorswitch.updatestars(-reduce);
         int appstars=Main.colorswitch.get_stars();
         int currstars=Main.colorswitch.mygame.retStars();
         total_stars=appstars+currstars;
         Star_Label.setText("SCORE: "+total_stars);
-                Main.window.setScene(App.gamepage);
-        Game_Controller.timeline.play();
-        File f = new File("src/sample/vid/Game_Music.wav");
-        Media media = new Media(f.toURI().toString());
-        MediaPlayer player = new MediaPlayer(media);
-        player.setAutoPlay(true);
-        player.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                player.seek(Duration.ZERO);
-                player.play();
-            }
-        });
     }
     @FXML
     public void Restart()throws IOException {

@@ -1,9 +1,12 @@
 package sample;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.IndexedCell;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -12,6 +15,7 @@ import javafx.util.Callback;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 public class Display_Game_Controller implements Initializable {
@@ -38,9 +42,9 @@ public class Display_Game_Controller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        File directoryPath = new File("C:/Users/rachn/Desktop/java/GUI/src/sample");
+        File directoryPath = new File("src\\sample\\savedgames");
         //List text files only
-        System.out.println("------------Text files------------");
+//        System.out.println("------------Text files------------");
         File[] files=directoryPath.listFiles((dir, name) -> name.endsWith(".txt"));
         //Remember to shift this to proper class-method once tested
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -49,12 +53,24 @@ public class Display_Game_Controller implements Initializable {
             items.add(file.getName());
         }
         List.setItems(items);
-
-        List.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> param) {
-                return new ColoredCell();
+        List.setCellFactory((Callback<ListView<String>, ListCell<String>>) param -> new ColoredCell());
+        List.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
+            String selectedItem = (String) List.getSelectionModel().getSelectedItem();
+//            int index = List.getSelectionModel().getSelectedIndex();
+            System.out.println(" Selected File is: "+ selectedItem);
+            Game newgame=null;
+            try
+            {
+                newgame=Main.Deserialize(selectedItem);
+                Main.colorswitch.mygame=newgame;
+                Main.colorswitch.gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+                Main.window.setScene(Main.colorswitch.gamepage);
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
             }
         });
     }
+
 }

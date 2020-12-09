@@ -94,7 +94,6 @@ public class Game_Controller<e> implements Initializable {
         Main.colorswitch.mygame.Translate_UP();
         timeline.play();
     }
-
     public void Ball_Fall()
     {
         timeline= new Timeline(new KeyFrame(Duration.seconds(0.025), ev->

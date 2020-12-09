@@ -19,7 +19,7 @@
                            <Image url="@../colorswitch2.jpg" />
                        </image>
                </ImageView>
-               <ListView fx:id="List" layoutX="319.0" layoutY="173.0" prefHeight="427.0" prefWidth="705.0" style="-fx-background-color: transparent; -fx-cell-size: 36; -fx-control-inner-background: black; -fx-text-alignment: center; -fx-text-fill: white;" />
+               <ListView fx:id="List" editable="true" layoutX="319.0" layoutY="173.0" prefHeight="427.0" prefWidth="705.0" style="-fx-background-color: transparent; -fx-cell-size: 36; -fx-control-inner-background: black; -fx-text-alignment: center; -fx-text-fill: white;" />
                <Label alignment="CENTER" layoutX="243.0" layoutY="49.0" prefHeight="83.0" prefWidth="769.0" text="SELECT FROM THE SAVED GAMES" textFill="#f3f0f0">
                   <font>
                      <Font name="Algerian" size="47.0" />
