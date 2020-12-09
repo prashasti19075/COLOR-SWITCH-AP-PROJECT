@@ -32,6 +32,19 @@ public class Game_Over_Controller implements Initializable {
         int currstars=Main.colorswitch.mygame.retStars();
         total_stars=appstars+currstars;
         Star_Label.setText("SCORE: "+total_stars);
+                Main.window.setScene(App.gamepage);
+        Game_Controller.timeline.play();
+        File f = new File("src/sample/vid/Game_Music.wav");
+        Media media = new Media(f.toURI().toString());
+        MediaPlayer player = new MediaPlayer(media);
+        player.setAutoPlay(true);
+        player.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                player.seek(Duration.ZERO);
+                player.play();
+            }
+        });
     }
     @FXML
     public void Restart()throws IOException {
