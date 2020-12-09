@@ -236,6 +236,7 @@ class Game
     }
     private void game_over() throws IOException {
         Scene gameover = FXMLLoader.load(getClass().getResource("Game_Over.fxml"));
+        b.setY(b.getY()-200);
         Main.window.setScene(gameover);
     }
     public void Translate_UP()
