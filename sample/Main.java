@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -136,6 +137,7 @@ class App implements Serializable {
         totalstars+=stars;
     }
     public void resume_game() throws IOException {
+        music.pause();
         Scene displayoldgames = FXMLLoader.load(getClass().getResource("Display_Games.fxml"));
         Main.window.setScene(displayoldgames);
 
@@ -154,7 +156,7 @@ class Game implements Serializable
     private int level;
     private double ballspeed;
     private ArrayList<Obstacle> obstacles;
-
+    private ArrayList<Integer> obstacleno;
     private double obstaclespeed;
     Boolean game;
     Game()
@@ -171,6 +173,16 @@ class Game implements Serializable
         game=true;
 
         obstacles=new ArrayList<>();
+        obstacleno=new ArrayList<Integer>();
+        obstacleno.add(2);
+    }
+    public void initialise()
+    {
+        sounds=new MediaPlayer[3];
+        images=new ImageView[4];
+        buttons=new Button[3];
+        labels=new TextArea[2];
+        obstacles=new ArrayList<>();
     }
     public void play_music()
     {
@@ -178,6 +190,7 @@ class Game implements Serializable
     }
     public void set_gui(Game_Controller run)
     {
+//        sounds=new MediaPlayer[3];
         sounds[0]=run.music;
         sounds[1]=run.star_collide;
 //        sounds[2]=run.gameover;
@@ -190,14 +203,33 @@ class Game implements Serializable
         Obstacle o1=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
         obstacles.add(o1);
 
-        Obstacle gen = null;
-        for(int i=0;i<10;i++) {
-            try {
-                gen = ChooseRandomObstacle(obstacles.get(i).get_position());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        if(obstacleno.size()!=1)
+        {
+            Obstacle gen = null;
+            for(int i=1;i<obstacleno.size();i++)
+            {
+                try {
+                    gen=ChooseRandomObstacle(obstacles.get(i-1).get_position(),obstacleno.get(i));
+                    obstacles.add(gen);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
-            obstacles.add(gen);
+        }
+        else {
+            Obstacle gen = null;
+            for (int i = 0; i < 10; i++) {
+                try {
+                    Random rand = new Random();
+                    int randomNum = rand.nextInt(5) +1;
+//        System.out.println(" Random Number is: "+ randomNum);
+                    obstacleno.add(randomNum);
+                    gen = ChooseRandomObstacle(obstacles.get(i).get_position(),randomNum);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                obstacles.add(gen);
+            }
         }
 //        System.out.println("Size of obstacle Array: "+obstacles.size());
     }
@@ -226,7 +258,7 @@ class Game implements Serializable
         labels[1].setText(""+starcount);
     }
     public void DisplayPause(MediaPlayer music) throws IOException {
-        music.pause();
+        sounds[0].pause();
         Scene pausepage = FXMLLoader.load(getClass().getResource("Pause_Page.fxml"));
         Main.window.setScene(pausepage);
     }
@@ -341,7 +373,7 @@ class Game implements Serializable
         //in deadline 3
         return true;
     }
-    private Obstacle ChooseRandomObstacle( double group_layout_y) throws FileNotFoundException {
+    private Obstacle ChooseRandomObstacle( double group_layout_y, int randomNum) throws FileNotFoundException {
         //for levels in deadline 3
         ImageView star=new ImageView();
         star.setImage(new Image(new FileInputStream("src\\star.png")));
@@ -377,9 +409,6 @@ class Game implements Serializable
 
         Obstacle new_obstacle=null;
 
-        Random rand = new Random();
-        int randomNum = rand.nextInt(5) +1;
-//        System.out.println(" Random Number is: "+ randomNum);
         switch(randomNum)
         {
             case 1:

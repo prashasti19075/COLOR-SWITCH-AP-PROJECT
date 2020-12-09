@@ -58,10 +58,11 @@ public class Display_Game_Controller implements Initializable {
             String selectedItem = (String) List.getSelectionModel().getSelectedItem();
 //            int index = List.getSelectionModel().getSelectedIndex();
             System.out.println(" Selected File is: "+ selectedItem);
-            Game newgame=null;
+            Game newgame;
             try
             {
                 newgame=Main.Deserialize(selectedItem);
+                newgame.initialise();
                 Main.colorswitch.mygame=newgame;
                 Main.colorswitch.gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
                 Main.window.setScene(Main.colorswitch.gamepage);
