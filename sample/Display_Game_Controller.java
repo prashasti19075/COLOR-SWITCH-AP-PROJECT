@@ -65,6 +65,7 @@ public class Display_Game_Controller implements Initializable {
                 newgame.initialise();
                 Main.colorswitch.mygame=newgame;
                 Main.colorswitch.gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+//                newgame.initialise2();
                 Main.window.setScene(Main.colorswitch.gamepage);
             }
             catch(IOException e)

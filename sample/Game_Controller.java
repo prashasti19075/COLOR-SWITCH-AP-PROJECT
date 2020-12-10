@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.StandardSocketOptions;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -77,11 +78,13 @@ public class Game_Controller<e> implements Initializable {
     @FXML
     public void check()
     {
+//        System.out.println("Clicked called by: "+this);
         timeline.pause();
         if(not_enable==false)
         {
             not_enable = true;
             Hand.setVisible(false);
+            Main.colorswitch.mygame.hand_enable_set(false);
         }
 //        System.out.println("not_enable: "+not_enable);
         Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
