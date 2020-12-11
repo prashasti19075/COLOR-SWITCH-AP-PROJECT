@@ -32,6 +32,10 @@ public class Main extends Application {
     {
         ObjectOutputStream out = null;
         try{
+                for(int i=0;i<a.obstacles.size();i++)
+                {
+                   System.out.println(" Translate value of obstacle "+i+" is: "+a.obstacles.get(i).getTransateY());
+                }
             out = new ObjectOutputStream(new FileOutputStream("src\\sample\\savedgames\\"+filename));
             out.writeObject(a);
         }
@@ -155,7 +159,7 @@ class Game implements Serializable
     private Ball b;
     private int level;
     private double ballspeed;
-    private ArrayList<Obstacle> obstacles;
+    public ArrayList<Obstacle> obstacles;
     private ArrayList<Integer> obstacleno;
     private Boolean hand_enable;
     Boolean game;
@@ -165,6 +169,7 @@ class Game implements Serializable
         images=new ImageView[4];
         buttons=new Button[3];
         labels=new TextArea[2];
+
         starcount=0;
         level=1;
         ballspeed=3;
@@ -173,77 +178,16 @@ class Game implements Serializable
         game=true;
 
         obstacles=new ArrayList<>();
-        obstacleno=new ArrayList<Integer>();
+        obstacleno= new ArrayList<>();
         obstacleno.add(2);
         hand_enable=true;
     }
-    public void initialise() {
+    public void initialise()
+    {
         sounds = new MediaPlayer[3];
         images = new ImageView[4];
         buttons = new Button[3];
         labels = new TextArea[2];
-        obstacles = new ArrayList<>();
-
-    }
-    public void initialise2()
-        {
-            if(hand_enable==false)
-            images[3].setVisible(false);
-            Obstacle gen = obstacles.get(0);
-            if(obstacles.get(0).getMystar().is_notclaimed()==false)
-                gen.getMystar().getimage().setVisible(false);
-            if(obstacles.get(0).get_claimed()==false)
-                gen.colorswitcher.setVisible(false);
-            for(int i=1;i<obstacleno.size();i++)
-            {
-                    try {
-                        gen=ChooseRandomObstacle(obstacles.get(i-1).get_position(),obstacleno.get(i));
-
-                        if(obstacles.get(i).getMystar().is_notclaimed()==false) {
-                            gen.getMystar().getimage().setVisible(false);
-                            gen.getMystar().set_claimed(false);
-                        }
-                        if(obstacles.get(i).get_claimed()==false) {
-                            gen.colorswitcher.setVisible(false);
-                            gen.set_claimed(false);
-                        }
-                        obstacles.add(gen);
-                    } catch (FileNotFoundException e)
-                    {
-                        e.printStackTrace();
-                    }
-            }
-            int prevsize=obstacleno.size();
-            //Initialise the obstacle already there
-            // Add 10 new
-            for (int i =prevsize-1; i < prevsize+9; i++) {
-                try
-                {
-                    Random rand = new Random();
-                    int randomNum = rand.nextInt(5) +1;
-//        System.out.println(" Random Number is: "+ randomNum);
-                    obstacleno.add(randomNum);
-                    gen = ChooseRandomObstacle(obstacles.get(i).get_position(),randomNum);
-                } catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-                obstacles.add(gen);
-            }
-            b.setY(b.Y_coordinate);
-            b.display_color();
-        /*
-        * 1. Star not visible
-        * 2. Hand - not visible
-        * 3. Scroll to that level
-        * 4. Ball at the same position
-        *
-        *
-        *
-        *
-        *
-        *
-        * */
     }
     public void play_music()
     {
@@ -251,7 +195,6 @@ class Game implements Serializable
     }
     public void set_gui(Game_Controller run)
     {
-//        sounds=new MediaPlayer[3];
         sounds[0]=run.music;
         sounds[1]=run.star_collide;
 //        sounds[2]=run.gameover;
@@ -260,27 +203,14 @@ class Game implements Serializable
         labels[1]=run.Star_Label;
         images[3]=run.Hand;
         main_pane=run.Main_Pane;
-        Obstacle o1=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
-        obstacles.add(o1);
 
         if(obstacleno.size()==1)
-        {
+        {   //Only when new
             b=new Ball(run.Ball,ballspeed);
-            Obstacle gen = null;
-            for (int i = 0; i < 10; i++) {
-                try
-                {
-                    Random rand = new Random();
-                    int randomNum = rand.nextInt(5) +1;
-//        System.out.println(" Random Number is: "+ randomNum);
-                    obstacleno.add(randomNum);
-                    gen = ChooseRandomObstacle(obstacles.get(i).get_position(),randomNum);
-                } catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-                obstacles.add(gen);
-            }
+            Obstacle o1=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
+            obstacles.add(o1);
+//            obstacleno.add(2);
+            addObstacles(0,10);
         }
         else
         {
@@ -289,9 +219,70 @@ class Game implements Serializable
             b.setY(temp.Y_coordinate);
             b.setColor(temp.getColorname());
             b.display_color();
-            initialise2();
+
+//            System.out.println("1. Array Size: "+obstacles.size()+" No arraySize: "+obstacleno.size());
+
+            Obstacle thisone=obstacles.get(0);
+//            System.out.println(" Obstacle no. 0"+ " Star: "+thisone.getMystar().is_notclaimed()+
+//                    " Color Switcher:"+ thisone.get_claimed());
+            obstacles.remove(0);
+            Obstacle newgen=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
+            obstacles.add(0,newgen);
+            newgen.translate_value= thisone.translate_value;
+            newgen.getMystar().set_claimed(thisone.getMystar().is_notclaimed());
+            newgen.set_claimed(thisone.get_claimed());
+//            System.out.println("2. Array Size: "+obstacles.size()+" No arraySize: "+obstacleno.size());
+            addObstacles_serialize();
         }
 //        System.out.println("Size of obstacle Array: "+obstacles.size());
+    }
+    private void addObstacles(int start,int end)
+    {
+        Obstacle gen = null;
+        for (int i = start; i < end; i++)
+        {
+            try
+            {
+                Random rand = new Random();
+                int randomNum = rand.nextInt(5) +1;
+//        System.out.println(" Random Number is: "+ randomNum);
+                obstacleno.add(randomNum);
+                gen = ChooseRandomObstacle(obstacles.get(i).get_position(),randomNum);
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            obstacles.add(gen);
+        }
+    }
+    private void addObstacles_serialize() {
+
+        for (int i = 1; i < obstacles.size(); i++) {
+//            System.out.println(" i is : + "+i+ "\n"+"1. Array Size: "+obstacles.size()+" No arraySize: "+obstacleno.size());
+            Obstacle thisone = obstacles.get(i);
+//            System.out.println(" Obstacle no."+i+ " Star: "+thisone.getMystar().is_notclaimed()+
+//                    " Color Switcher:"+ thisone.get_claimed());
+            Obstacle newgen = null;
+            obstacles.remove(i);
+            try {
+                newgen = ChooseRandomObstacle(obstacles.get(i - 1).get_position(), obstacleno.get(i));
+                newgen.translate_value = thisone.translate_value;
+                newgen.getMystar().set_claimed(thisone.getMystar().is_notclaimed());
+                newgen.set_claimed(thisone.get_claimed());
+//                System.out.println(" Obstacle no."+i+ " Star: "+newgen.getMystar().is_notclaimed()+
+//                        " Color Switcher:"+ newgen.get_claimed());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            obstacles.add(i, newgen);
+//            System.out.println("2. Array Size: "+obstacles.size()+" No arraySize: "+obstacleno.size());
+        }
+
+        if (hand_enable == false)
+            images[3].setVisible(false);
+        for (int i = 0; i < obstacles.size(); i++)
+            obstacles.get(i).update();
     }
     public void updateStars(int x)
     {
@@ -376,7 +367,7 @@ class Game implements Serializable
     {
         for(int i=0;i<obstacles.size();i++) {
 //            System.out.println(" Pattern moves down");
-            obstacles.get(i).Translate(10, 40, 1);
+            obstacles.get(i).Translate(10, 40.00, 1);
         }
     }
     public void playgame()
@@ -540,7 +531,7 @@ class Game implements Serializable
     }
     public void DisplayObstacles()
     {
-        System.out.println("DisplayObstacles() Called");
+//        System.out.println("DisplayObstacles() Called");
         RotateTransition rt_array[]=new RotateTransition[obstacles.size()];
         for(int i=0;i<obstacles.size();i++) obstacles.get(i).rotate(rt_array[i]);
     }
@@ -561,6 +552,7 @@ class Ball implements Serializable
         ball=b;
         speed=y;
         X_coordinate=b.getLayoutX();
+        colorname="#ffff00";
     }
     public void ChooseRandomColor()
     {
@@ -625,23 +617,27 @@ abstract class Obstacle implements Serializable
 {
     protected  transient ImageView obstacle;
     protected transient ImageView Star;
-    protected transient Star mystar;
+    protected Star mystar;
     protected transient ImageView colorswitcher;
     protected boolean enable_colorswitch;
     protected transient Group patterns;
+    protected double translate_value;
     Obstacle(ImageView Star,ImageView colorswitcher)
     {
         this.Star=Star;
         this.colorswitcher=colorswitcher;
         this.enable_colorswitch=true;
         mystar=new Star(Star,true);
+        translate_value=0;
     }
-    public void Translate(int duration,int translate_by,int cycle_count)
+    public void Translate(int duration,double translate_by,int cycle_count)
     {
         TranslateTransition translate= new TranslateTransition(Duration.millis(duration),patterns);
         translate.setByY(translate_by);
         translate.setCycleCount(cycle_count);
+//        translate_value=patterns.getTranslateY();
         translate.play();
+        update_translate();
     }
     public boolean star_collision(Game g)
     {
@@ -652,6 +648,15 @@ abstract class Obstacle implements Serializable
         boolean result=g.CollisionColorSwitcher(colorswitcher,patterns,enable_colorswitch);
         if(result) set_claimed(false);
         return result;
+    }
+    public void update()
+    {
+//        System.out.println( " Star: "+this.getMystar().is_notclaimed()+
+//                " Color Switcher:"+ this.get_claimed());
+        this.getMystar().getimage().setVisible(this.getMystar().is_notclaimed());
+        this.colorswitcher.setVisible(this.get_claimed());
+        this.Translate(100,this.getTransateY(),1);
+//        System.out.println(" tanslate Value: "+this.getTransateY());
     }
     public void set_claimed(boolean b)
     {
@@ -670,8 +675,14 @@ abstract class Obstacle implements Serializable
     {
         return this.patterns.getLayoutY();
     }
-    //1. Rotate- abstract method different for everyone
-    //2. Translate
+    public void update_translate()
+    {
+        this.translate_value=patterns.getTranslateY();
+    }
+    public double getTransateY()
+    {
+        return this.translate_value;
+    }
 }
 class Obstacle1 extends Obstacle{
     Obstacle1(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
@@ -769,7 +780,7 @@ class Obstacle5 extends Obstacle{
 }
 class Star implements Serializable
 {
-    private ImageView starimage;
+    private transient ImageView starimage;
     private boolean enable_star;
     Star(ImageView a,Boolean e) {
         this.starimage = a;
@@ -786,5 +797,10 @@ class Star implements Serializable
     public void set_claimed(boolean b)
     {
         enable_star=b;
+    }
+    public void setVisible(Boolean g)
+    {
+        System.out.println(" called for star: "+g);
+        starimage.setVisible(g);
     }
 }

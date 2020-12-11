@@ -15,10 +15,10 @@
 <?import javafx.scene.media.MediaPlayer?>
 <?import javafx.scene.media.Media?>
 
-<Scene fx:id="Game_Scene" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
-    <ScrollPane onKeyPressed="#check">
+<Scene fx:id="Game_Scene" onKeyReleased="#check" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Game_Controller">
+    <ScrollPane>
         <content>
-            <VBox onKeyPressed="#check">
+            <VBox>
                 <children>
                     <MediaView>
                         <mediaPlayer>
@@ -36,7 +36,7 @@
                     </MediaView>
                 </children>
                 <children>
-                    <AnchorPane fx:id="Main_Pane" onKeyPressed="#check" onKeyReleased="#check" onKeyTyped="#check" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
+                    <AnchorPane fx:id="Main_Pane"  prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
                         <children>
                      <Group fx:id="scroll_element" layoutX="420.0" layoutY="50.0">
                         <children>

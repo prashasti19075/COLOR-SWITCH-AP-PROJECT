@@ -90,7 +90,7 @@ public class Game_Controller<e> implements Initializable {
         Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
         {
 //            System.out.println(" Ball Move UP");
-            Ball.setLayoutY(Ball.getLayoutY() - 10);
+            Ball.setLayoutY(Ball.getLayoutY() - 20);
         }));
         move_ball.setCycleCount(1);
         move_ball.play();
