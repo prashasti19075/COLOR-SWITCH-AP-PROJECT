@@ -18,11 +18,9 @@ public class Game_Over_Controller implements Initializable {
     @FXML
     Button Revive;
     @FXML
-    Button Back_to_Menu;
-    @FXML
     Button Star_Label;
     @FXML
-    public void Back() throws IOException
+    public void Back_to_Menu() throws IOException
     {
         int currstars=Main.colorswitch.mygame.retStars();
         Main.colorswitch.updatestars(currstars);

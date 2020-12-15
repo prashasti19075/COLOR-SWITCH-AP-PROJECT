@@ -189,6 +189,22 @@ class Game implements Serializable
         buttons = new Button[3];
         labels = new TextArea[2];
     }
+    public void is_ending()
+    {
+        int n=obstacles.size();
+        if(n-getLevel()<=2)
+        {
+            System.out.println("Came Here");
+            addObstacles(n-1,n+9);
+            System.out.println(obstacles.get(n-1).getTransateY());
+            System.out.println(obstacles.get(n-2).getTransateY());
+            for(int i=n-1;i<n+9;i++)
+            {
+                obstacles.get(i).is_ending(obstacles.get(n-1).getTransateY());
+            }
+            DisplayObstacles();
+        }
+    }
     public void play_music()
     {
         sounds[0].play();
@@ -241,6 +257,7 @@ class Game implements Serializable
         Obstacle gen = null;
         for (int i = start; i < end; i++)
         {
+            System.out.println("Added obstacle at" +i);
             try
             {
                 Random rand = new Random();
@@ -394,6 +411,7 @@ class Game implements Serializable
             obstacles.get(i).star_collision(this);
         for(int i=0;i<obstacles.size();i++)
             obstacles.get(i).colorswitcher_collision(this);
+
     }
     public boolean CollisionStar(Star star, Group patterns)
     {
@@ -577,7 +595,7 @@ class Ball implements Serializable
         return colorname;
     }
     public boolean check_collison(ImageView a,Group scroll_element) {
-        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<2)
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<3)
         {
 //            System.out.println("Touched");
             return true;
@@ -657,6 +675,11 @@ abstract class Obstacle implements Serializable
         this.colorswitcher.setVisible(this.get_claimed());
         this.Translate(100,this.getTransateY(),1);
 //        System.out.println(" tanslate Value: "+this.getTransateY());
+    }
+    public void is_ending(double translate_value)
+    {
+        this.translate_value=translate_value;
+        Translate(100,translate_value,1);
     }
     public void set_claimed(boolean b)
     {

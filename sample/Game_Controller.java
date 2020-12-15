@@ -10,6 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +20,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.StandardSocketOptions;
 import java.net.URL;
@@ -24,6 +28,10 @@ import java.util.ResourceBundle;
 
 public class Game_Controller<e> implements Initializable {
     boolean not_enable=false;
+    @FXML
+    Button Pause;
+    @FXML
+    ImageView pause_image;
     @FXML
     AnchorPane Main_Pane;
     @FXML
@@ -50,7 +58,6 @@ public class Game_Controller<e> implements Initializable {
     ImageView star;
     @FXML
     ImageView Hand;
-    int scrollcounter=0;
     public static Timeline timeline;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -76,6 +83,22 @@ public class Game_Controller<e> implements Initializable {
         Main.colorswitch.mygame.DisplayPause(music);
     }
     @FXML
+    public void pause_music() throws IOException
+    {
+//        System.out.println("Pause Pressed");
+        if(music.isMute())
+        {
+            music.setMute(false);
+            pause_image.setImage(new Image(new FileInputStream("src\\pause.png")));
+        }
+        else
+        {
+            music.setMute(true);
+            pause_image.setImage(new Image(new FileInputStream("src\\play.png")));
+        }
+
+    }
+    @FXML
     public void check()
     {
 //        System.out.println("Clicked called by: "+this);
@@ -86,6 +109,7 @@ public class Game_Controller<e> implements Initializable {
             Hand.setVisible(false);
             Main.colorswitch.mygame.hand_enable_set(false);
         }
+        Main.colorswitch.mygame.is_ending();
 //        System.out.println("not_enable: "+not_enable);
         Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
         {

@@ -36,7 +36,7 @@
                     </MediaView>
                 </children>
                 <children>
-                    <AnchorPane fx:id="Main_Pane"  prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
+                    <AnchorPane fx:id="Main_Pane" prefHeight="655.0" prefWidth="1360.0" style="-fx-background-color: black;">
                         <children>
                      <Group fx:id="scroll_element" layoutX="420.0" layoutY="50.0">
                         <children>
@@ -91,6 +91,15 @@
                                     <Image url="@../star.png" />
                                 </image>
                             </ImageView>
+                     <Button fx:id="Pause" layoutX="335.0" layoutY="54.0" mnemonicParsing="false" onAction="#pause_music" style="-fx-background-color: white;">
+                        <graphic>
+                           <ImageView fx:id="pause_image" fitHeight="70.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../pause.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                         </children>
                     </AnchorPane>
                 </children>

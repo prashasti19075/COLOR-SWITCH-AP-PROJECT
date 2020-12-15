@@ -27,26 +27,20 @@
                             <Reflection topOpacity="0.28" />
                         </effect>
                     </Button>
-                    <Button fx:id="Back_to_Menu" alignment="CENTER" layoutX="393.0" layoutY="168.0" mnemonicParsing="false" onAction="#Back" prefHeight="50.0" prefWidth="441.0" style="-fx-border-color: White; -fx-background-color: Black;" text="BACK TO MENU" textAlignment="CENTER" textFill="WHITE">
+                    <Button fx:id="Back_to_Menu" alignment="CENTER" layoutX="404.0" layoutY="174.0" mnemonicParsing="false" onAction="#Back_to_Menu" prefHeight="50.0" prefWidth="441.0" style="-fx-border-color: White; -fx-background-color: Black;" text="BACK TO MENU" textAlignment="CENTER" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="46.0" />
                         </font>
-                        <effect>
-                            <Reflection topOpacity="0.28" />
-                        </effect>
                     </Button>
                     <ImageView fitHeight="216.0" fitWidth="261.0" layoutX="24.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@../title.png" />
                         </image>
                     </ImageView>
-                    <Button alignment="CENTER" layoutX="405.0" layoutY="48.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="378.0" style="-fx-border-color: None; -fx-background-color: None;" text="GAME OVER!" textAlignment="CENTER" textFill="WHITE">
+                    <Button alignment="CENTER" layoutX="405.0" layoutY="48.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="378.0" style="-fx-border-color: None; -fx-background-color: None;" text="GAME OVER!" textAlignment="CENTER" textFill="WHITE">
                         <font>
                             <Font name="System Bold" size="46.0" />
                         </font>
-                        <effect>
-                            <Reflection topOpacity="0.28" />
-                        </effect>
                     </Button>
                     <Button fx:id="Star_Label" alignment="CENTER" layoutX="888.0" layoutY="-8.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="306.0" style="-fx-border-color: None; -fx-background-color: None;" text="SCORE:" textAlignment="CENTER" textFill="WHITE">
                         <font>
@@ -61,13 +55,10 @@
                             <Image url="@../star.png" />
                         </image>
                     </ImageView>
-               <Button fx:id="Back_to_Menu1" alignment="CENTER" layoutX="407.0" layoutY="468.0" mnemonicParsing="false" onAction="#Restart" prefHeight="50.0" prefWidth="441.0" style="-fx-border-color: White; -fx-background-color: Black;" text="RESTART GAME" textAlignment="CENTER" textFill="WHITE">
+               <Button fx:id="Restart" alignment="CENTER" layoutX="407.0" layoutY="468.0" mnemonicParsing="false" onAction="#Restart" prefHeight="50.0" prefWidth="441.0" style="-fx-border-color: White; -fx-background-color: Black;" text="RESTART GAME" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="46.0" />
                   </font>
-                  <effect>
-                     <Reflection topOpacity="0.28" />
-                  </effect>
                </Button>
                 </children>
             </AnchorPane>

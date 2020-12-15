@@ -50,13 +50,15 @@ public class Display_Game_Controller implements Initializable {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (File file : files)
         {
-            items.add(file.getName());
+            String fullname=file.getName();
+            items.add(fullname.substring(0,fullname.indexOf(".txt")));
         }
         List.setItems(items);
         List.setCellFactory((Callback<ListView<String>, ListCell<String>>) param -> new ColoredCell());
         List.getSelectionModel().selectedItemProperty().addListener((ov, old_val, new_val) -> {
             String selectedItem = (String) List.getSelectionModel().getSelectedItem();
 //            int index = List.getSelectionModel().getSelectedIndex();
+            selectedItem+=".txt";
             System.out.println(" Selected File is: "+ selectedItem);
             Game newgame;
             try

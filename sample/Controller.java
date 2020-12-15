@@ -16,6 +16,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
@@ -26,6 +27,10 @@ import static javafx.fxml.FXMLLoader.load;
 public class Controller implements Initializable {
     @FXML
     MediaPlayer musicPlayer;
+    @FXML
+    Button Pause;
+    @FXML
+    ImageView pause_image;
     @FXML
     TextArea Star_Label;
     @FXML
@@ -76,7 +81,22 @@ public class Controller implements Initializable {
         Main.window.setScene(videoPage);
         // ********* ADD THIS Star_Label.setText(Integer.toString(curr_stars+30));
     }
+    @FXML
+    public void pause_music() throws IOException
+    {
+//        System.out.println("Pause Pressed");
+        if(musicPlayer.isMute())
+        {
+            musicPlayer.setMute(false);
+            pause_image.setImage(new Image(new FileInputStream("src\\pause.png")));
+        }
+        else
+        {
+            musicPlayer.setMute(true);
+            pause_image.setImage(new Image(new FileInputStream("src\\play.png")));
+        }
 
+    }
     @FXML
     void Quit() {
         Main.colorswitch.exit_game();

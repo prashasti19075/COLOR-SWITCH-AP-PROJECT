@@ -69,7 +69,7 @@ public class Pause_Controller{
 //                        System.out.println(" Match ");
                         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                         confirm.setTitle("Confirmation Dialog");
-                        confirm.setHeaderText("Your previous game "+ input+ " will be overwritten" );
+                        confirm.setHeaderText("Your previous game "+ input.substring(0,input.indexOf(".txt"))+ " will be overwritten" );
                         confirm.setContentText("Are you ok with this?");
 
                         Optional<ButtonType> result2 = confirm.showAndWait();
