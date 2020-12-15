@@ -109,7 +109,6 @@ public class Game_Controller<e> implements Initializable {
             Hand.setVisible(false);
             Main.colorswitch.mygame.hand_enable_set(false);
         }
-        Main.colorswitch.mygame.is_ending();
 //        System.out.println("not_enable: "+not_enable);
         Timeline move_ball = new Timeline(new KeyFrame(Duration.seconds(0.025), ev2 ->
         {

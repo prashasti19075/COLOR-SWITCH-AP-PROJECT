@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.IndexedCell;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -17,6 +15,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 public class Display_Game_Controller implements Initializable {
     @FXML
@@ -61,20 +60,28 @@ public class Display_Game_Controller implements Initializable {
             selectedItem+=".txt";
             System.out.println(" Selected File is: "+ selectedItem);
             Game newgame;
-            try
-            {
-                newgame=Main.Deserialize(selectedItem);
-                newgame.initialise();
-                Main.colorswitch.mygame=newgame;
-                Main.colorswitch.gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
+            try {
+                    newgame = Main.Deserialize(selectedItem);
+                    newgame.initialise();
+                    Main.colorswitch.mygame = newgame;
+                    Main.colorswitch.gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
 //                newgame.initialise2();
-                Main.window.setScene(Main.colorswitch.gamepage);
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+                    Main.window.setScene(Main.colorswitch.gamepage);
+                }
+                catch (IOException e)
+                {
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setTitle("Incompatible Game");
+                    confirm.setHeaderText(" The game version is older than the current verion, hence, this game cannot be loaded,try another");
+                    confirm.setContentText("Choose another game");
+                    Optional<ButtonType> result2 = confirm.showAndWait();
+                    if (result2.get() == ButtonType.OK)
+                    {
+                        
+                    }
+                }
         });
+
     }
 
 }

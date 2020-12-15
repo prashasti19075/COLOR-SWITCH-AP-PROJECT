@@ -189,22 +189,6 @@ class Game implements Serializable
         buttons = new Button[3];
         labels = new TextArea[2];
     }
-    public void is_ending()
-    {
-        int n=obstacles.size();
-        if(n-getLevel()<=2)
-        {
-            System.out.println("Came Here");
-            addObstacles(n-1,n+9);
-            System.out.println(obstacles.get(n-1).getTransateY());
-            System.out.println(obstacles.get(n-2).getTransateY());
-            for(int i=n-1;i<n+9;i++)
-            {
-                obstacles.get(i).is_ending(obstacles.get(n-1).getTransateY());
-            }
-            DisplayObstacles();
-        }
-    }
     public void play_music()
     {
         sounds[0].play();
@@ -405,13 +389,25 @@ class Game implements Serializable
             }
             return;
         }
-        for(int i=0;i<obstacles.size();i++)
-            obstacles.get(i).Translate(25,-3,1);
+        for(int i=0;i<obstacles.size();i++) {
+            System.out.println("Translate value of " + i + "is " + obstacles.get(i).getTransateY());
+            obstacles.get(i).Translate(25, -3, 1);
+        }
         for(int i=0;i<obstacles.size();i++)
             obstacles.get(i).star_collision(this);
         for(int i=0;i<obstacles.size();i++)
             obstacles.get(i).colorswitcher_collision(this);
-
+        int n=obstacles.size();
+        if(n-getLevel()==1)
+        {
+            addObstacles(n-1,n+9);
+            obstacles.get(n-1).update_translate();
+            for(int i=n;i<n+10;i++)
+            {
+                obstacles.get(i).Translate(100,obstacles.get(n-1).getTransateY(),1);
+            }
+            DisplayObstacles();
+        }
     }
     public boolean CollisionStar(Star star, Group patterns)
     {
@@ -675,11 +671,6 @@ abstract class Obstacle implements Serializable
         this.colorswitcher.setVisible(this.get_claimed());
         this.Translate(100,this.getTransateY(),1);
 //        System.out.println(" tanslate Value: "+this.getTransateY());
-    }
-    public void is_ending(double translate_value)
-    {
-        this.translate_value=translate_value;
-        Translate(100,translate_value,1);
     }
     public void set_claimed(boolean b)
     {
