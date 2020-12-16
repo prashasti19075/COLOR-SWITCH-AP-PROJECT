@@ -615,9 +615,27 @@ class Ball implements Serializable
         }
         return false;
     }
+    public boolean check_collision_up1(ImageView a,Group scroll_element)
+    {
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()-ball.getLayoutY())<10)
+        {
+            System.out.println("Up collide");
+            return true;
+        }
+        return false;
+    }
     public boolean check_collision_down(ImageView a,Group scroll_element)
     {
         if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()+250-ball.getLayoutY())<10)
+        {
+            System.out.println("Down collide");
+            return true;
+        }
+        return false;
+    }
+    public boolean check_collision_down1(ImageView a,Group scroll_element)
+    {
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()+230-ball.getLayoutY())<10)
         {
             System.out.println("Down collide");
             return true;
@@ -760,27 +778,27 @@ class Obstacle1 extends Obstacle {
     }
     @Override
     public boolean CollisionObs(Obstacle star, Group patterns, Ball b) {
-        if (b.check_collision_down(star.getimage(), patterns))
+        if (b.check_collision_down1(star.getimage(), patterns))
         {
             if(b.getColorname().equals("#ffff00")){//Yellow.
                 System.out.println("aaya yellow");
-                if((((int)(this.obstacle.getRotate())%360)>270)&&((this.obstacle.getRotate()%360)<360)){
+                if((((int)(this.obstacle.getRotate())%360)>225)&&((this.obstacle.getRotate()%360)<315)){
                     System.out.println("aaya yellow");
                     return false;
                 }
             }
             if(b.getColorname().equals("#0000ff")){//Blue
-                if(((this.obstacle.getRotate())%360>90)&&((this.obstacle.getRotate())%360<180)){
+                if(((this.obstacle.getRotate())%360>45)&&((this.obstacle.getRotate())%360<135)){
                     return false;
                 }
             }
             if(b.getColorname().equals("#660066")){//Purple
-                if(((this.obstacle.getRotate()%360)>180)&&((this.obstacle.getRotate()%360)<270)){
+                if(((this.obstacle.getRotate()%360)>135)&&((this.obstacle.getRotate()%360)<225)){
                     return false;
                 }
             }
             if(b.getColorname().equals("#ff0000")){//Red
-                if((this.obstacle.getRotate()>0)&&(this.obstacle.getRotate()<90)){
+                if(((int)(this.obstacle.getRotate())%360>315)||(((int)this.obstacle.getRotate())%360<45)){
                     return false;
                 }
             }
@@ -789,28 +807,29 @@ class Obstacle1 extends Obstacle {
         if (b.check_collision_up(star.getimage(), patterns)) {
             if(b.getColorname().equals("#ffff00")){//Yellow.
                 System.out.println("aaya yellow");
-                if((((int)(this.obstacle.getRotate())%360)>90)&&((this.obstacle.getRotate()%360)<180)){
+                if((((int)(this.obstacle.getRotate())%360)>45)&&((this.obstacle.getRotate()%360)<135)){
                     System.out.println("aaya yellow");
                     return false;
                 }
             }
             if(b.getColorname().equals("#0000ff")){//Blue
-                if(((this.obstacle.getRotate())%360>180)&&((this.obstacle.getRotate())%360<360)){
+                if(((this.obstacle.getRotate())%360>225)&&((this.obstacle.getRotate())%360<315)){
                     return false;
                 }
             }
             if(b.getColorname().equals("#660066")){//Purple
-                if(((this.obstacle.getRotate()%360)>0)&&((this.obstacle.getRotate()%360)<90)){
+                if(((this.obstacle.getRotate()%360)>315)&&((this.obstacle.getRotate()%360)<45)){
                     return false;
                 }
             }
             if(b.getColorname().equals("#ff0000")){//Red
-                if((this.obstacle.getRotate()>180)&&(this.obstacle.getRotate()<270)){
+                if((this.obstacle.getRotate()>135)&&(this.obstacle.getRotate()<225)){
                     return false;
                 }
             }
             return true;
         }
+
         return false;
     }
 }
@@ -867,7 +886,7 @@ class Obstacle2 extends Obstacle{
                 }
             }
             if(b.getColorname().equals("#0000ff")){//Blue
-                if(((this.obstacle.getRotate())%360>180)&&((this.obstacle.getRotate())%360<360)){
+                if(((this.obstacle.getRotate())%360>270)&&((this.obstacle.getRotate())%360<360)){
                     return false;
                 }
             }
@@ -1048,7 +1067,7 @@ class Obstacle5 extends Obstacle{
                 }
             }
             if(b.getColorname().equals("#0000ff")){//Blue
-                if(((this.obstacle.getRotate())%360>180)&&((this.obstacle.getRotate())%360<360)){
+                if(((this.obstacle.getRotate())%360>270)&&((this.obstacle.getRotate())%360<360)){
                     return false;
                 }
             }
