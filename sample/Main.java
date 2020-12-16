@@ -526,7 +526,7 @@ class Game implements Serializable
                 obs_2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                 break;
             case 4:
-                obstacle.setImage(new Image(new FileInputStream("src\\obs4.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obss4.png")));
                 new_obstacle=new Obstacle4(obstacle,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 obstacle.setFitHeight(284.0);
@@ -977,15 +977,13 @@ class Obstacle4 extends Obstacle{
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
-        rt.setAutoReverse(true);
         rt.play();
     }
     @Override
     public boolean CollisionObs(Obstacle star, Group patterns, Ball b)
     {
-        if(b.check_collison2(star.getimage(),patterns))
+        if (b.check_collision_down(star.getimage(), patterns))
         {
-            System.out.println("aaya");
             if(b.getColorname().equals("#ffff00")){//Yellow.
                 System.out.println("aaya yellow");
                 if((((int)(this.obstacle.getRotate())%360)>270)&&((this.obstacle.getRotate()%360)<360)){
@@ -1010,9 +1008,35 @@ class Obstacle4 extends Obstacle{
             }
             return true;
         }
+        if (b.check_collision_up(star.getimage(), patterns)) {
+            if(b.getColorname().equals("#ffff00")){//Yellow.
+                System.out.println("aaya yellow");
+                if((((int)(this.obstacle.getRotate())%360)>90)&&((this.obstacle.getRotate()%360)<180)){
+                    System.out.println("aaya yellow");
+                    return false;
+                }
+            }
+            if(b.getColorname().equals("#0000ff")){//Blue
+                if(((this.obstacle.getRotate())%360>270)&&((this.obstacle.getRotate())%360<360)){
+                    return false;
+                }
+            }
+            if(b.getColorname().equals("#660066")){//Purple
+                if(((this.obstacle.getRotate()%360)>0)&&((this.obstacle.getRotate()%360)<90)){
+                    return false;
+                }
+            }
+            if(b.getColorname().equals("#ff0000")){//Red
+                if((this.obstacle.getRotate()>180)&&(this.obstacle.getRotate()<270)){
+                    return false;
+                }
+            }
+            return true;
+        }
+
         return false;
     }
-}
+ }
 class Obstacle5 extends Obstacle{
     Obstacle5(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
     {
