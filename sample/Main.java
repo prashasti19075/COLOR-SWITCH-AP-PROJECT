@@ -1005,7 +1005,7 @@ class Obstacle5 extends Obstacle{
     public void rotate(RotateTransition rt)
     {
         rt= new RotateTransition(Duration.millis(5000),obstacle);
-        rt.setByAngle(-360);
+        rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
