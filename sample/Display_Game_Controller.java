@@ -1,18 +1,13 @@
 package sample;
-
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -77,7 +72,7 @@ public class Display_Game_Controller implements Initializable {
                     Optional<ButtonType> result2 = confirm.showAndWait();
                     if (result2.get() == ButtonType.OK)
                     {
-                        
+
                     }
                 }
         });

@@ -4,11 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +28,7 @@ public class Game_Over_Controller implements Initializable {
         //load
         int reduce= Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
         Main.colorswitch.updatestars(-reduce);
+        System.out.println(Main.colorswitch.get_stars());
         int appstars=Main.colorswitch.get_stars();
         int currstars=Main.colorswitch.mygame.retStars();
         total_stars=appstars+currstars;

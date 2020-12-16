@@ -2,19 +2,13 @@ package sample;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
@@ -22,7 +16,6 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.StandardSocketOptions;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -103,7 +96,7 @@ public class Game_Controller<e> implements Initializable {
     {
 //        System.out.println("Clicked called by: "+this);
         timeline.pause();
-        if(not_enable==false)
+        if(!not_enable)
         {
             not_enable = true;
             Hand.setVisible(false);
@@ -128,7 +121,7 @@ public class Game_Controller<e> implements Initializable {
             Main.colorswitch.mygame.playgame();
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
-        if(not_enable==true) {
+        if(not_enable) {
             timeline.play();
         }
 //        System.out.println();
