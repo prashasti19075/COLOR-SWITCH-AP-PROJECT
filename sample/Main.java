@@ -12,11 +12,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,7 +22,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
 import static javafx.fxml.FXMLLoader.load;
 
 public class Main extends Application {
@@ -32,10 +29,10 @@ public class Main extends Application {
     {
         ObjectOutputStream out = null;
         try{
-                for(int i=0;i<a.obstacles.size();i++)
-                {
-                   System.out.println(" Translate value of obstacle "+i+" is: "+a.obstacles.get(i).getTransateY());
-                }
+            for(int i=0;i<a.obstacles.size();i++)
+            {
+                System.out.println(" Translate value of obstacle "+i+" is: "+a.obstacles.get(i).getTransateY());
+            }
             out = new ObjectOutputStream(new FileOutputStream("src\\sample\\savedgames\\"+filename));
             out.writeObject(a);
         }
@@ -92,8 +89,7 @@ class App implements Serializable {
         buttons = new Button[4];
         mygame=new Game();
     }
-    public void set_gui(Controller cont)
-    {
+    public void set_gui(Controller cont){
         buttons[0]=cont.videobutton;
         buttons[1]=cont.New_Game;
         buttons[2]=cont.Resume_Game;
@@ -210,7 +206,7 @@ class Game implements Serializable
             Obstacle o1=new Obstacle2(run.Obstacle,run.star, run.color_switcher,run.scroll_element);
             obstacles.add(o1);
 //            obstacleno.add(2);
-            addObstacles(0,10);
+            addObstacles(0,20);
         }
         else
         {
@@ -241,12 +237,10 @@ class Game implements Serializable
         Obstacle gen = null;
         for (int i = start; i < end; i++)
         {
-            System.out.println("Added obstacle at" +i);
             try
             {
                 Random rand = new Random();
                 int randomNum = rand.nextInt(5) +1;
-//        System.out.println(" Random Number is: "+ randomNum);
                 obstacleno.add(randomNum);
                 gen = ChooseRandomObstacle(obstacles.get(i).get_position(),randomNum);
             }
@@ -378,8 +372,8 @@ class Game implements Serializable
         //THIS IS GAME_OVER
         if(drop())
         {
-            try
-            {
+            //System.out.println("Collided.");
+            try     {
                 Game_Controller.timeline.pause();
                 sounds[0].pause();
                 game_over();
@@ -389,24 +383,41 @@ class Game implements Serializable
             }
             return;
         }
-        for(int i=0;i<obstacles.size();i++) {
-            System.out.println("Translate value of " + i + "is " + obstacles.get(i).getTransateY());
-            obstacles.get(i).Translate(25, -3, 1);
-        }
+        for(int i=0;i<obstacles.size();i++)
+            obstacles.get(i).Translate(25,-3,1);
         for(int i=0;i<obstacles.size();i++)
             obstacles.get(i).star_collision(this);
         for(int i=0;i<obstacles.size();i++)
             obstacles.get(i).colorswitcher_collision(this);
+        for(int i=0;i<obstacles.size();i++){
+            if(obstacles.get(i).obs_collision(this, this.b)){
+                System.out.println("Collided.");
+                try     {
+                    Game_Controller.timeline.pause();
+                    sounds[0].pause();
+                    game_over();
+                    return;
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                return;
+            }
+            //obstacles.get(i).obs_collision(this, this.b);
+        }
         int n=obstacles.size();
         if(n-getLevel()==1)
         {
             addObstacles(n-1,n+9);
-            obstacles.get(n-1).update_translate();
+            DisplayObstacles();
             for(int i=n;i<n+10;i++)
             {
-                obstacles.get(i).Translate(100,obstacles.get(n-1).getTransateY(),1);
+                TranslateTransition translate= new TranslateTransition(Duration.millis(100),obstacles.get(i).patterns);
+                translate.setByY(obstacles.get(n-1).patterns.getTranslateY());
+                translate.setCycleCount(2);
+                //        translate_value=patterns.getTranslateY();
+                translate.play();
+                obstacles.get(i).update_translate();
             }
-            DisplayObstacles();
         }
     }
     public boolean CollisionStar(Star star, Group patterns)
@@ -423,11 +434,11 @@ class Game implements Serializable
         }
         return false;
     }
+
     public boolean CollisionColorSwitcher(ImageView ColorSwitcher, Group patterns,boolean is_enable)
     {   //in deadline 3
 //
-        if(is_enable && b.check_collison_cs(ColorSwitcher,patterns))
-        {
+        if(is_enable && b.check_collison_cs(ColorSwitcher,patterns)) {
 //            System.out.println(ColorSwitcher+" is touching");
             b.ChooseRandomColor();
             ColorSwitcher.setVisible(false);
@@ -437,11 +448,7 @@ class Game implements Serializable
         }
         return false;
     }
-    public boolean isCollisionObstacle()
-    {
-        //in deadline 3
-        return true;
-    }
+
     private Obstacle ChooseRandomObstacle( double group_layout_y, int randomNum) throws FileNotFoundException {
         //for levels in deadline 3
         ImageView star=new ImageView();
@@ -598,6 +605,17 @@ class Ball implements Serializable
         }
         return false;
     }
+    public boolean check_collison2(ImageView a,Group scroll_element) {
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<3)
+        {
+//            System.out.println("Touched");
+            //if(){
+
+            //}
+            return true;
+        }
+        return false;
+    }
     public boolean check_collison_cs(ImageView a,Group scroll_element) {
 
         if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<2)
@@ -657,6 +675,9 @@ abstract class Obstacle implements Serializable
     {
         return g.CollisionStar(mystar,patterns);
     }
+    public boolean obs_collision(Game g, Ball b){
+        return CollisionObs(this, patterns, b);
+    }
     public boolean colorswitcher_collision(Game g)
     {
         boolean result=g.CollisionColorSwitcher(colorswitcher,patterns,enable_colorswitch);
@@ -684,6 +705,9 @@ abstract class Obstacle implements Serializable
     {
         return mystar;
     }
+    /*public boolean getobs_claimed(){
+        return false;
+    }*/
     abstract void rotate(RotateTransition rt);
     public double get_position()
     {
@@ -697,6 +721,24 @@ abstract class Obstacle implements Serializable
     {
         return this.translate_value;
     }
+    public ImageView getimage()
+    {
+        return this.obstacle;
+    }
+    public boolean CollisionObs(Obstacle star, Group patterns, Ball b)
+    {
+        if(b.check_collison2(star.getimage(),patterns))
+        {
+//            System.out.println(star.getimage()+" is touching");
+            //updateStars(1);
+            //sounds[1].play();
+            //display_score();
+            //star.getimage().setVisible(false);
+            //star.set_claimed(false);
+            return true;
+        }
+        return false;
+    }
 }
 class Obstacle1 extends Obstacle{
     Obstacle1(ImageView obstacle,ImageView Star,ImageView colorswitcher,Group patterns)
@@ -708,11 +750,31 @@ class Obstacle1 extends Obstacle{
     @Override
     public void rotate(RotateTransition rt)
     {
-        rt= new RotateTransition(Duration.millis(5000),obstacle);
+        rt= new RotateTransition(Duration.millis(1000000),obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
+    }
+    @Override
+    public boolean CollisionObs(Obstacle star, Group patterns, Ball b)
+    {
+        if(b.check_collison2(star.getimage(),patterns))
+        {
+            if(b.getColorname().compareTo(new String("#0000ff"))==0){
+
+            }
+
+//            System.out.println(star.getimage()+" is touching");
+            //updateStars(1);
+            //sounds[1].play();
+            //display_score();
+            //star.getimage().setVisible(false);
+            //star.set_claimed(false);
+
+            return true;
+        }
+        return false;
     }
 }
 class Obstacle2 extends Obstacle{
@@ -731,6 +793,7 @@ class Obstacle2 extends Obstacle{
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
     }
+
 }
 class Obstacle3 extends Obstacle{
     transient ImageView obs_2;
