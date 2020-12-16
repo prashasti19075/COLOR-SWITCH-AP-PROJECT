@@ -21,6 +21,7 @@ import javafx.util.Duration;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.*;
 
 import static javafx.fxml.FXMLLoader.load;
 
@@ -761,10 +762,29 @@ class Obstacle1 extends Obstacle{
     {
         if(b.check_collison2(star.getimage(),patterns))
         {
-            if(b.getColorname().compareTo(new String("#0000ff"))==0){
-
+            System.out.println("aaya");
+            if(b.getColorname().equals("#ffff00")){//Yellow.
+                System.out.println("aaya yellow");
+                if((((int)(this.obstacle.getRotate())%360)>270)&&((this.obstacle.getRotate()%360)<360)){
+                    System.out.println("aaya yellow");
+                    return false;
+                }
             }
-
+            if(b.getColorname().equals("#0000ff")){//Blue
+                if(((this.obstacle.getRotate())%360>90)&&((this.obstacle.getRotate())%360<180)){
+                    return false;
+                }
+            }
+            if(b.getColorname().equals("#660066")){//Purple
+                if(((this.obstacle.getRotate()%360)>180)&&((this.obstacle.getRotate()%360)<270)){
+                    return false;
+                }
+            }
+            if(b.getColorname().equals("#ff0000")){//Red
+                if((this.obstacle.getRotate()>0)&&(this.obstacle.getRotate()<90)){
+                    return false;
+                }
+            }
 //            System.out.println(star.getimage()+" is touching");
             //updateStars(1);
             //sounds[1].play();
