@@ -112,9 +112,15 @@ public class Pause_Controller{
                     Alert exit_message = new Alert(Alert.AlertType.INFORMATION);
                     exit_message.setTitle("GAME SAVED");
                     exit_message.setHeaderText(null);
-                    exit_message.setContentText("Your game has been saved, we will exit the interface now !!");
+                    exit_message.setContentText("Your game has been saved, you will be directed to the main page now !!");
                     exit_message.showAndWait();
-                    Main.colorswitch.exit_game();
+                    Scene homepage = null;
+                    try {
+                        homepage = FXMLLoader.load(getClass().getResource("sample.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Main.window.setScene(homepage);
                 }
 //                    System.out.println("Filename is: " + filename + " Input is: " + input);
                 }
