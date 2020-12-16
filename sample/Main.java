@@ -326,6 +326,7 @@ class Game implements Serializable
             if(starcount>=5)
             {
                 starcount-=5;
+                display_score();
                 Main.window.setScene(App.gamepage);
                 Main.colorswitch.mygame.play_music();
                 Game_Controller.timeline.play();
@@ -336,6 +337,7 @@ class Game implements Serializable
             {
                 int app_stars=(5-starcount);
                 starcount=0;
+                display_score();
                 Main.window.setScene(App.gamepage);
                 Game_Controller.timeline.play();
                 Main.colorswitch.mygame.play_music();
@@ -510,19 +512,19 @@ class Game implements Serializable
                 obstacle.setLayoutY(148.00);
                 break;
             case 3:
-                obstacle.setImage(new Image(new FileInputStream("src\\obs3.png")));
-                obs_2.setImage(new Image(new FileInputStream("src\\obs3.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obst3.png")));
+                obs_2.setImage(new Image(new FileInputStream("src\\obst3.png")));
                 new_obstacle=new Obstacle3(obstacle,obs_2,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 pattern.getChildren().add(obs_2);
-                obstacle.setFitHeight(361.0);
-                obstacle.setFitWidth(185.0);
-                obs_2.setFitHeight(361.0);
-                obs_2.setFitWidth(185.0);
-                obstacle.setLayoutX(40.00);
-                obstacle.setLayoutY(180.00);
-                obs_2.setLayoutX(160.00);
-                obs_2.setLayoutY(180.00);
+                obstacle.setFitHeight(142.0);
+                obstacle.setFitWidth(142.0);
+                obs_2.setFitHeight(142.0);
+                obs_2.setFitWidth(142.0);
+                obstacle.setLayoutX(60.00);
+                obstacle.setLayoutY(190.00);
+                obs_2.setLayoutX(199.00);
+                obs_2.setLayoutY(190.00);
                 pattern.resize(325,313);
                 obs_2.setPickOnBounds(true);
                 obs_2.setPreserveRatio(true);
@@ -602,7 +604,7 @@ class Ball implements Serializable
         return colorname;
     }
     public boolean check_collison(ImageView a,Group scroll_element) {
-        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<3)
+        if (Math.abs(a.getLayoutY()+scroll_element.getTranslateY()+scroll_element.getLayoutY()- ball.getLayoutY())<10)
         {
 //            System.out.println("Touched");
             return true;
@@ -806,7 +808,6 @@ class Obstacle1 extends Obstacle {
             }
             return true;
         }
-
         return false;
     }
 }
@@ -828,10 +829,10 @@ class Obstacle2 extends Obstacle{
     }
     @Override
     public boolean CollisionObs(Obstacle star, Group patterns, Ball b) {
+
         if (b.check_collision_down(star.getimage(), patterns))
         {
             if(b.getColorname().equals("#ffff00")){//Yellow.
-//                System.out.println("aaya yellow");
                 if((((int)(this.obstacle.getRotate())%360)>270)&&((this.obstacle.getRotate()%360)<360)){
 //                    System.out.println("aaya yellow");
                     return false;
@@ -852,7 +853,8 @@ class Obstacle2 extends Obstacle{
                     return false;
                 }
             }
-            return true;
+            //return true;
+            return false;
         }
         if (b.check_collision_up(star.getimage(), patterns)) {
             if(b.getColorname().equals("#ffff00")){//Yellow.
@@ -909,45 +911,50 @@ class Obstacle3 extends Obstacle{
     }
     @Override
     public boolean CollisionObs(Obstacle obstacle, Group patterns, Ball b) {
-
-        if (Math.abs(obstacle.getimage().getLayoutY()+patterns.getTranslateY()+patterns.getLayoutY()+130-b.getY())<10)
-        {
+        //
+        if (Math.abs(obstacle.getimage().getLayoutY()+patterns.getTranslateY()+patterns.getLayoutY()+71-b.getY())<4)
+        {   int rot=((int)(this.obstacle.getRotate())%360);
+            System.out.println("aaya");
 //            System.out.println("Down Collison\nRotation at this point"+obstacle.getimage().getRotate());
+            //((rot<91)&&(rot>88))//red
+            //(rot<271 && rot>269)//blue
+            //(rot<181 && rot>179)//purple
+            //(rot<1 || rot>359)//yellow
+
             if(b.getColorname().equals("#ffff00")){//Yellow.
-//                System.out.println(" ball aaya yellow");
-                if((((int)(this.obstacle.getRotate())%360)>0)&&((this.obstacle.getRotate()%360)<90)){
+                System.out.println("ball aaya yellow");
+                if((rot<=185 && rot>=175)||(rot<=275 && rot>=265)||((rot<=95)&&(rot>=85))){
 //                    System.out.println("aaya yellow");
-                    return false;
+                    return true;
                 }
             }
+
             if(b.getColorname().equals("#0000ff")){//Blue
-//                System.out.println(" ball aaya blue");
-                if(((this.obstacle.getRotate())%360>180)&&((this.obstacle.getRotate())%360<270)){
-//                    System.out.println("aaya blue");
-                    return false;
+                System.out.println(" ball aaya blue");
+                if((rot<=185 && rot>=175)||((rot<=95)&&(rot>=85))||(rot<=5 || rot>=355)){
+                    System.out.println("aaya blue");
+                    return true;
                 }
             }
             if(b.getColorname().equals("#660066")){//Purple
-//                System.out.println(" ball aaya purple");
-                if(((this.obstacle.getRotate()%360)>270)&&((this.obstacle.getRotate()%360)<360)){
-//                    System.out.println("aaya purple");
-                    return false;
+                System.out.println(" ball aaya purple");
+                if((rot<=275 && rot>=265)||((rot<=95)&&(rot>=85))||(rot<=5 || rot>=355)){
+                    System.out.println("aaya purple");
+                    return true;
                 }
             }
             if(b.getColorname().equals("#ff0000")){//Red
-//                System.out.println(" ball aaya red");
-                if((this.obstacle.getRotate()>90)&&(this.obstacle.getRotate()<180)){
-//                    System.out.println("aaya red");
-                    return false;
+                System.out.println(" ball aaya red");
+                if((rot<=185 && rot>=175)||(rot<=5 || rot>=355)||(rot<=275 && rot>=265)){
+                    System.out.println("aaya red");
+                    return true;
                 }
             }
-            return true;
+            System.out.println(rot);
+            return false;
 
         }
-        if (Math.abs(obstacle.getimage().getLayoutY()+patterns.getTranslateY()+patterns.getLayoutY()-b.getY())<10)
-        {
-//            System.out.println("Up Collision\n Rotation at this point"+obstacle.getimage().getRotate());
-        }
+
         return false;
     }
 }
@@ -1131,8 +1138,7 @@ class Star implements Serializable {
         starimage.setVisible(g);
     }
 }
-    interface Collidable
-    {
-        boolean CollisionObs(Obstacle star, Group patterns, Ball b);
-    }
-
+interface Collidable
+{
+    boolean CollisionObs(Obstacle star, Group patterns, Ball b);
+}
