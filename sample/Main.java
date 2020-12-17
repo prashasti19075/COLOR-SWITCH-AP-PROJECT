@@ -587,6 +587,7 @@ class Ball implements Serializable
         ball=b;
         speed=y;
         X_coordinate=b.getLayoutX();
+        Y_coordinate=b.getLayoutY();
         colorname="#ffff00";
     }
     public void ChooseRandomColor()
