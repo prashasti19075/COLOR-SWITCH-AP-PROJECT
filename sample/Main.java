@@ -562,8 +562,13 @@ class Game implements Serializable
     public void DisplayObstacles()
     {
 //        System.out.println("DisplayObstacles() Called");
+        int rotate_time=5000;
         RotateTransition rt_array[]=new RotateTransition[obstacles.size()];
-        for(int i=0;i<obstacles.size();i++) obstacles.get(i).rotate(rt_array[i]);
+        for(int i=0;i<obstacles.size();i++) {
+            if(i!=0 && i%5==0)
+                rotate_time-=500;
+            obstacles.get(i).rotate(rt_array[i], rotate_time);
+        }
     }
     //+Serialize(): void
 }
@@ -724,7 +729,7 @@ abstract class Obstacle implements Serializable,Collidable
     /*public boolean getobs_claimed(){
         return false;
     }*/
-    abstract void rotate(RotateTransition rt);
+    abstract void rotate(RotateTransition rt,int rotate_time);
     public double get_position()
     {
         return this.patterns.getLayoutY();
@@ -751,8 +756,8 @@ class Obstacle1 extends Obstacle {
     }
 
     @Override
-    public void rotate(RotateTransition rt) {
-        rt = new RotateTransition(Duration.millis(5000), obstacle);
+    public void rotate(RotateTransition rt,int rotate_time) {
+        rt = new RotateTransition(Duration.millis(rotate_time), obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
@@ -822,9 +827,9 @@ class Obstacle2 extends Obstacle{
         this.patterns=patterns;
     }
     @Override
-    public void rotate(RotateTransition rt)
+    public void rotate(RotateTransition rt,int rotate_time)
     {
-        rt= new RotateTransition(Duration.millis(5000),obstacle);
+        rt= new RotateTransition(Duration.millis(rotate_time),obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
@@ -905,15 +910,15 @@ class Obstacle3 extends Obstacle{
         this.patterns=patterns;
     }
     @Override
-    public void rotate(RotateTransition rt)
+    public void rotate(RotateTransition rt,int rotate_time)
     {
-        rt= new RotateTransition(Duration.millis(5000),obstacle);
+        rt= new RotateTransition(Duration.millis(rotate_time),obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
         rt.play();
 
-        rt= new RotateTransition(Duration.millis(5000),obs_2);
+        rt= new RotateTransition(Duration.millis(rotate_time),obs_2);
         rt.setByAngle(-360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
@@ -975,9 +980,9 @@ class Obstacle4 extends Obstacle{
         this.patterns=patterns;
     }
     @Override
-    public void rotate(RotateTransition rt)
+    public void rotate(RotateTransition rt,int rotate_time)
     {
-        rt= new RotateTransition(Duration.millis(5000),obstacle);
+        rt= new RotateTransition(Duration.millis(rotate_time),obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
@@ -1049,9 +1054,9 @@ class Obstacle5 extends Obstacle{
         this.patterns=patterns;
     }
     @Override
-    public void rotate(RotateTransition rt)
+    public void rotate(RotateTransition rt,int rotate_time)
     {
-        rt= new RotateTransition(Duration.millis(5000),obstacle);
+        rt= new RotateTransition(Duration.millis(rotate_time),obstacle);
         rt.setByAngle(360);
         rt.setCycleCount(Animation.INDEFINITE);
         rt.setInterpolator(Interpolator.LINEAR);
