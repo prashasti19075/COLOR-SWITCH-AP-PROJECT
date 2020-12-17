@@ -65,6 +65,7 @@ public class Display_Game_Controller implements Initializable {
                 }
                 catch (IOException e)
                 {
+                    e.printStackTrace();
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setTitle("Incompatible Game");
                     confirm.setHeaderText(" The game version is older than the current verion, hence, this game cannot be loaded,try another");
