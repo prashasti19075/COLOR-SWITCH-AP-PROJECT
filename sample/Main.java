@@ -20,6 +20,7 @@ import javafx.util.Duration;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.lang.*;
 
@@ -391,14 +392,14 @@ class Game implements Serializable
             }
             return;
         }
-        for(int i=0;i<obstacles.size();i++)
-            obstacles.get(i).Translate(25,-3,1);
-        for(int i=0;i<obstacles.size();i++)
-            obstacles.get(i).star_collision(this);
-        for(int i=0;i<obstacles.size();i++)
-            obstacles.get(i).colorswitcher_collision(this);
-        for(int i=0;i<obstacles.size();i++){
-            if(obstacles.get(i).obs_collision(this, this.b)){
+        Iterator<Obstacle> iterator=obstacles.iterator();
+        while(iterator.hasNext()) {
+            Obstacle currobs=iterator.next();
+            currobs.Translate(25,-3,1);
+            currobs.star_collision(this);
+            currobs.colorswitcher_collision(this);
+            if(currobs.obs_collision(this, this.b))
+            {
 //                System.out.println("Collided.");
                 try     {
                     Game_Controller.timeline.pause();
