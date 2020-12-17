@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -420,12 +421,8 @@ class Game implements Serializable
             DisplayObstacles();
             for(int i=n;i<n+10;i++)
             {
-                TranslateTransition translate= new TranslateTransition(Duration.millis(100),obstacles.get(i).patterns);
-                translate.setByY(obstacles.get(n-1).patterns.getTranslateY());
-                translate.setCycleCount(2);
-                //        translate_value=patterns.getTranslateY();
-                translate.play();
-                obstacles.get(i).update_translate();
+                obstacles.get(i).patterns.setTranslateY(obstacles.get(n-1).patterns.getTranslateY());
+                System.out.println("Translate Value of: "+i+" is "+obstacles.get(i).patterns.getTranslateY());
             }
         }
     }
