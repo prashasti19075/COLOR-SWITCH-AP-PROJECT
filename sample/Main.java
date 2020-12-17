@@ -263,7 +263,7 @@ class Game implements Serializable
             try {
                 try
                 {
-                   int b=obstacleno.get(i);
+                    int b=obstacleno.get(i);
                 }
                 catch(IndexOutOfBoundsException e)
                 {
@@ -332,7 +332,7 @@ class Game implements Serializable
                 starcount-=5;
                 display_score();
                 Main.colorswitch.mygame.play_music();
-                Game_Controller.timeline.play();
+                //Game_Controller.timeline.play();
                 Main.window.setScene(App.gamepage);
                 //return is basically how many stars need to be deducted from app ke total stars
                 return 0;
@@ -342,7 +342,7 @@ class Game implements Serializable
                 int app_stars=(5-starcount);
                 starcount=0;
                 display_score();
-                Game_Controller.timeline.play();
+                //Game_Controller.timeline.play();
                 Main.colorswitch.mygame.play_music();
                 Main.window.setScene(App.gamepage);
                 return app_stars;
@@ -356,15 +356,16 @@ class Game implements Serializable
     }
     private boolean drop()
     {
-        if (b.getY()>700)
+        if (b.getY()>690)
         {
+            b.setY(670);
             return true;
         }
         return false;
     }
     private void game_over() throws IOException {
         Scene gameover = FXMLLoader.load(getClass().getResource("Game_Over.fxml"));
-        b.setY(b.getY()-200);
+        //b.setY(b.getY()-200);
         Main.window.setScene(gameover);
     }
     public void Translate_UP()
@@ -398,8 +399,7 @@ class Game implements Serializable
             currobs.Translate(25,-3,1);
             currobs.star_collision(this);
             currobs.colorswitcher_collision(this);
-            if(currobs.obs_collision(this, this.b))
-            {
+            if(currobs.obs_collision(this, this.b))  {
 //                System.out.println("Collided.");
                 try     {
                     Game_Controller.timeline.pause();
