@@ -311,7 +311,7 @@ class Game implements Serializable
     {
         labels[1].setText(""+starcount);
     }
-    public void DisplayPause(MediaPlayer music) throws IOException {
+    public void DisplayPause() throws IOException {
         sounds[0].pause();
         Scene pausepage = FXMLLoader.load(getClass().getResource("Pause_Page.fxml"));
         Main.window.setScene(pausepage);
@@ -327,9 +327,9 @@ class Game implements Serializable
             {
                 starcount-=5;
                 display_score();
-                Main.window.setScene(App.gamepage);
                 Main.colorswitch.mygame.play_music();
                 Game_Controller.timeline.play();
+                Main.window.setScene(App.gamepage);
                 //return is basically how many stars need to be deducted from app ke total stars
                 return 0;
             }
@@ -338,10 +338,9 @@ class Game implements Serializable
                 int app_stars=(5-starcount);
                 starcount=0;
                 display_score();
-                Main.window.setScene(App.gamepage);
                 Game_Controller.timeline.play();
                 Main.colorswitch.mygame.play_music();
-
+                Main.window.setScene(App.gamepage);
                 return app_stars;
             }
         }
@@ -512,8 +511,8 @@ class Game implements Serializable
                 obstacle.setLayoutY(148.00);
                 break;
             case 3:
-                obstacle.setImage(new Image(new FileInputStream("src\\obst3.png")));
-                obs_2.setImage(new Image(new FileInputStream("src\\obst3.png")));
+                obstacle.setImage(new Image(new FileInputStream("src\\obs3.png")));
+                obs_2.setImage(new Image(new FileInputStream("src\\obs3.png")));
                 new_obstacle=new Obstacle3(obstacle,obs_2,star,color_switcher,pattern);
                 pattern.getChildren().add(obstacle);
                 pattern.getChildren().add(obs_2);
@@ -832,29 +831,36 @@ class Obstacle2 extends Obstacle{
 
         if (b.check_collision_down(star.getimage(), patterns))
         {
+//            System.out.println("Down COllide");
             if(b.getColorname().equals("#ffff00")){//Yellow.
+                System.out.println("Ball aaya yellow");
                 if((((int)(this.obstacle.getRotate())%360)>270)&&((this.obstacle.getRotate()%360)<360)){
-//                    System.out.println("aaya yellow");
+                    System.out.println("aaya yellow");
                     return false;
                 }
             }
             if(b.getColorname().equals("#0000ff")){//Blue
+                System.out.println("Ball aaya Blue");
                 if(((this.obstacle.getRotate())%360>90)&&((this.obstacle.getRotate())%360<180)){
+                    System.out.println("aaya Blue");
                     return false;
                 }
             }
             if(b.getColorname().equals("#660066")){//Purple
+                System.out.println("Ball aaya purple");
                 if(((this.obstacle.getRotate()%360)>180)&&((this.obstacle.getRotate()%360)<270)){
+                    System.out.println("aaya Purple");
                     return false;
                 }
             }
             if(b.getColorname().equals("#ff0000")){//Red
+                System.out.println("Ball aaya Red");
                 if((this.obstacle.getRotate()>0)&&(this.obstacle.getRotate()<90)){
+                    System.out.println("aaya Red");
                     return false;
                 }
             }
-            //return true;
-            return false;
+            return true;
         }
         if (b.check_collision_up(star.getimage(), patterns)) {
             if(b.getColorname().equals("#ffff00")){//Yellow.

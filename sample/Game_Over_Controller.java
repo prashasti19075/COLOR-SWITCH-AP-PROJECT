@@ -26,9 +26,9 @@ public class Game_Over_Controller implements Initializable {
     public void Revive()
     {
         //load
-        int reduce= Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
+        int reduce=Main.colorswitch.mygame.DisplayRevive(Revive,total_stars);
         Main.colorswitch.updatestars(-reduce);
-        System.out.println(Main.colorswitch.get_stars());
+//        System.out.println(Main.colorswitch.get_stars());
         int appstars=Main.colorswitch.get_stars();
         int currstars=Main.colorswitch.mygame.retStars();
         total_stars=appstars+currstars;
@@ -37,8 +37,7 @@ public class Game_Over_Controller implements Initializable {
     @FXML
     public void Restart()throws IOException {
         Main.colorswitch.mygame=new Game();
-        Scene gamepage = FXMLLoader.load(getClass().getResource("Game_Page.fxml"));
-        Main.window.setScene(gamepage);
+        Main.colorswitch.new_game();
     }
 
     @Override

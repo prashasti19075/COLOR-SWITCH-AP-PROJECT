@@ -73,7 +73,7 @@ public class Game_Controller<e> implements Initializable {
     {
 //        System.out.println("Pause Pressed");
         timeline.pause();
-        Main.colorswitch.mygame.DisplayPause(music);
+        Main.colorswitch.mygame.DisplayPause();
     }
     @FXML
     public void pause_music() throws IOException
