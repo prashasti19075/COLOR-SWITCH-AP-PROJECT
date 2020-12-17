@@ -24,8 +24,7 @@ public class Pause_Controller{
     @FXML
     public void resume()
     {
-        Game_Controller.timeline.play();
-        Main.window.setScene(App.gamepage);
+        Main.window.setScene(Main.colorswitch.gamepage);
         Main.colorswitch.mygame.play_music();
     }
     @FXML
