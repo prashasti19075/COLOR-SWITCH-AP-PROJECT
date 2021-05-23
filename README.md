@@ -9,3 +9,4 @@
   1. The stars collected
   2. The exact position of the ball
   3. The position of the obstacles and their orientation
+![Functionality and Design Patterns]( https://github.com/prashasti19075/COLOR-SWITCH-AP-PROJECT/blob/main/0001.jpg?raw=true)
