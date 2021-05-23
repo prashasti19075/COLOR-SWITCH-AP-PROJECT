@@ -1,6 +1,11 @@
 # COLOR-SWITCH-AP-PROJECT
-Final Advanced programming project- A java implementation of color switch game
-1. Now trying to make the game of infinite levels-
-(almost infinitish aage levels khel kar dekhne padhenge to check accuracy, kuch translate ki problem hai jo fix karni hai ) : DONE ;)
-2. Tallying it with the UML diagram (UML Kinda Messed up and already way out of path so .. ;) DONE
-3. Reading the project documentation again for any missing things (lol obstacle collision hi nahi hai but still leaving that) DONE ;)
+## Final Advanced programming project: A java implementation of color switch game
+- The objective of the game is to collect as many stars as possible by manoeuvring the obstacles. 
+- Upon hitting any obstacle, one can continue with your earned stars or the game ends and have to start from the beginning.
+- We developed the endless (infinity) game mode of the classic gameplay. 
+- As the game progresses, the game becomes difficult, which is achieved by creating different kinds of obstacles. 
+- The Stars collected are used to resurrect the ball in case the ball hits an obstacle.
+- One can save the state of the game upon pausing.To save the state of game at any point in time, we store: 
+  1. The stars collected
+  2. The exact position of the ball
+  3. The position of the obstacles and their orientation
